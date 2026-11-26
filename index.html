@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>رفيق المدرس</title>
+<meta name="theme-color" content="#0e5b63">
+<meta name="description" content="إدارة طلابك وحصصك وتقارير واتساب لأولياء الأمور">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="رفيق المدرس">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<script>try{var th=localStorage.getItem('rafiq-theme');if(th)document.documentElement.dataset.theme=th;var lg=localStorage.getItem('rafiq-lang');if(lg==='en'){document.documentElement.lang='en';document.documentElement.dir='ltr'}}catch(e){}</script>
+<style>
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0e1415);--ink:light-dark(#12201f,#e6eeed);--mut:light-dark(#5b6b69,#93a5a3);
+--line:light-dark(#e2e8e7,#243131);--soft:light-dark(#eef5f4,#172122);--card:light-dark(#ffffff,#131b1c);
+--br:#0e5b63;--br2:light-dark(#0e5b63,#5fb8bf);--pen:light-dark(#d8342c,#ff6b61);--penSoft:light-dark(#fdecea,#2a1513);
+--wa:#1a9e50;--ok:light-dark(#0f7a43,#4fd08a);--okSoft:light-dark(#e7f6ee,#122a1d);--warn:light-dark(#a86200,#f2b552);
+--sat:env(safe-area-inset-top);--sab:env(safe-area-inset-bottom)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans Arabic",system-ui,Tahoma,sans-serif;overflow-x:clip;-webkit-tap-highlight-color:transparent}
+h1,h2,h3{font-family:Cairo,"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.2;margin:0;text-wrap:balance}
+h1{font-size:clamp(24px,4vw,34px)}h2{font-size:19px}h3{font-size:17px}
+a{color:var(--br2)}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+.rail{background:var(--br);color:#fff;padding:22px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:4px;overflow:auto}
+.rail .logo{display:flex;gap:10px;align-items:center;font:800 21px Cairo;padding:0 8px 18px}
+.rail .logo img{width:40px;height:40px;border-radius:10px;background:#fff}
+.rail .logo small{display:block;font:500 13px "IBM Plex Sans Arabic";opacity:.75}
+.nav{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;padding:10px 12px;border-radius:10px;font-weight:500;opacity:.88}
+.nav:hover{background:#ffffff1a;opacity:1}.nav.on{background:#fff;color:var(--br);opacity:1}
+.nav svg{width:20px;height:20px;flex:none}
+.nav .cnt{margin-inline-start:auto;background:#d8342c;color:#fff;border-radius:99px;font-size:12px;padding:0 7px}
+.rail .grow{flex:1}
+main{padding:0 0 110px}
+.top{display:flex;align-items:center;gap:8px;padding:calc(10px + var(--sat)) max(4vw,14px) 10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:15}
+.top .t{font:700 18px Cairo;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sync{font-size:12px;color:var(--mut);white-space:nowrap}
+.ib{position:relative;width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--ink);cursor:pointer;font:700 14px "IBM Plex Sans Arabic";text-decoration:none;flex:none}
+.ib svg{width:21px;height:21px}
+.ib b{position:absolute;top:-5px;inset-inline-end:-5px;background:#d8342c;color:#fff;font-size:12px;min-width:20px;height:20px;border-radius:99px;display:grid;place-items:center;padding:0 5px}
+.wrap{padding:20px max(4vw,14px);max-width:1180px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr))}
+.cards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sp{flex:1}
+.mut{color:var(--mut);font-size:14px}
+.kpi{font:800 28px Cairo;font-variant-numeric:tabular-nums}.kpi small{font:500 14px "IBM Plex Sans Arabic";color:var(--mut)}
+.btn{font:600 15px "IBM Plex Sans Arabic";min-height:44px;padding:0 16px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap}
+.btn:hover{border-color:var(--br2)}
+.btn.p{background:var(--br);border-color:var(--br);color:#fff}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:#fff}
+.btn.d{color:var(--pen)}
+.btn.s{min-height:36px;padding:0 11px;font-size:14px;border-radius:10px}
+.btn svg{width:18px;height:18px}
+.btn[disabled],.btn.off{opacity:.45;pointer-events:none}
+.wab{width:36px;height:36px;border-radius:10px;background:var(--wa);color:#fff;display:inline-grid;place-items:center;border:0;cursor:pointer;flex:none}
+.wab svg{width:19px;height:19px}
+.phone{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.phone bdi{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--br2);outline-offset:2px}
+input,select,textarea{font:16px "IBM Plex Sans Arabic",system-ui;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 11px;min-height:44px;width:100%}
+input[type=checkbox],input[type=radio]{width:20px;height:20px;min-height:0;accent-color:var(--br)}
+textarea{min-height:120px;resize:vertical;line-height:1.7}
+label{display:block;font-size:14px;color:var(--mut);margin:10px 0 4px}
+label.in{display:flex;gap:8px;align-items:center;margin:0;color:var(--ink);font-size:15px}
+.f2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:0 12px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{font-weight:600;color:var(--mut);font-size:13px;text-align:start;padding:8px;border-bottom:1px solid var(--line)}
+td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.num{text-align:end;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{display:inline-block;font-size:13px;padding:2px 10px;border-radius:99px;background:var(--soft);white-space:nowrap}
+.tag.ok{color:var(--ok);background:var(--okSoft)}.tag.bad{background:var(--penSoft);color:var(--pen)}.tag.w{color:var(--warn)}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;flex:none}
+.att{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.att button{border:0;background:var(--card);color:var(--ink);min-width:76px;min-height:42px;font:600 14px "IBM Plex Sans Arabic";cursor:pointer;padding:0 10px}
+.att button+button{border-inline-start:1px solid var(--line)}
+.att button.on.y{background:var(--ok);color:#fff}.att button.on.n{background:#d8342c;color:#fff}
+.register{background:var(--br);color:#fff;border-radius:20px;padding:20px;position:relative;overflow:hidden}
+.register::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0 37px,#ffffff12 37px 38px);pointer-events:none}
+.register>*{position:relative}
+.reg-row{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid #ffffff22}
+.reg-row .tm{font:800 16px Cairo;text-align:center;border-inline-end:2px solid #ff8a80aa;padding-inline-end:8px;font-variant-numeric:tabular-nums}
+.register .btn{background:#fff;color:var(--br);border-color:#fff}
+.register .btn.g{background:transparent;color:#fff;border-color:#ffffff66}
+.week{display:grid;gap:0}
+.wday{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.wday:last-child{border-bottom:0}
+.wday .d b{display:block;font:700 16px Cairo}.wday .d span{font-size:13px;color:var(--mut)}
+.slot{display:flex;align-items:center;gap:10px;padding:6px 0;flex-wrap:wrap}
+.slot .tm{font:700 15px Cairo;font-variant-numeric:tabular-nums;min-width:52px}
+.alert{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line)}
+.alert:last-child{border-bottom:0}
+.alert .ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex:none;background:var(--soft);color:var(--br2)}
+.alert .ic svg{width:20px;height:20px}
+.alert.bad .ic{background:var(--penSoft);color:var(--pen)}
+.alert.read{opacity:.62}
+.alert .tt b::after{content:"";display:none}
+.alert.unread .tt b::after{display:inline-block;width:8px;height:8px;border-radius:50%;background:#d8342c;margin-inline-start:6px;vertical-align:middle}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:0 14px;min-height:36px;font:500 14px "IBM Plex Sans Arabic";cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--br);border-color:var(--br);color:#fff}
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:70px minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:14px}
+.bar i{display:block;height:14px;border-radius:7px;background:var(--br2)}
+.strip{display:flex;gap:4px;flex-wrap:wrap}
+.strip span{width:16px;height:16px;border-radius:4px}
+.tabs{display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid var(--line);margin:16px 0}
+.tabs button{border:0;background:none;color:var(--mut);font:600 15px "IBM Plex Sans Arabic";padding:10px 12px;min-height:44px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs button.on{color:var(--ink);border-color:var(--br2)}
+.scard{display:flex;flex-direction:column;gap:10px}
+.scard .hd{display:flex;gap:12px;align-items:center}
+.av{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font:800 19px Cairo;color:#fff;flex:none}
+.scard .meters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center;background:var(--soft);border-radius:12px;padding:8px}
+.scard .meters b{display:block;font:800 17px Cairo}.scard .meters span{font-size:12px;color:var(--mut)}
+.scard .ph{display:flex;align-items:center;gap:8px;justify-content:space-between;font-size:14px}
+.file{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.file:last-child{border-bottom:0}
+.fi{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;flex:none;background:var(--soft);color:var(--br2)}
+.fi.v{background:var(--penSoft);color:var(--pen)}
+.fi svg{width:20px;height:20px}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;color:var(--mut)}
+.drop.on{border-color:var(--br2);background:var(--soft)}
+.modal{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;z-index:50;padding:14px}
+.modal.on{display:flex}
+.sheet{background:var(--card);border-radius:18px;width:min(560px,100%);max-height:calc(100vh - 28px);overflow:auto;padding:20px}
+.bottom{display:none}
+.empty{text-align:center;padding:36px 16px;color:var(--mut)}
+.note{background:var(--soft);border-radius:12px;padding:10px 14px;font-size:14px;color:var(--mut)}
+.toast{position:fixed;bottom:calc(92px + var(--sab));inset-inline:0;margin:auto;width:max-content;max-width:90vw;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:12px;z-index:60;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+.pop{position:fixed;top:calc(12px + var(--sat));inset-inline:0;margin:auto;width:min(440px,calc(100vw - 24px));background:var(--card);border:1px solid var(--line);border-inline-start:5px solid #d8342c;border-radius:14px;box-shadow:0 12px 40px #0003;padding:12px 14px;z-index:70;display:none;gap:12px;align-items:center;transform:translateY(-20px);opacity:0;transition:.25s}
+.pop.on{display:flex;transform:none;opacity:1}
+.pop .ic{color:#d8342c}.pop svg{width:22px;height:22px}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.scroll{overflow-x:auto}
+.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:var(--br)}
+.auth .card{width:min(420px,100%)}
+.auth .logo{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+.auth .logo img{width:52px;height:52px;border-radius:14px}
+.seg2{display:flex;background:var(--soft);border-radius:12px;padding:4px;margin:12px 0}
+.seg2 button{flex:1;border:0;background:none;border-radius:9px;min-height:40px;font:600 15px "IBM Plex Sans Arabic";color:var(--mut);cursor:pointer}
+.seg2 button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 4px #0002}
+.install svg{width:22px;height:22px;flex:none}.install{background:#ffffff18;border:1px solid #ffffff40;color:#fff;border-radius:12px;padding:10px 12px;font-size:14px;display:flex;gap:8px;align-items:center;cursor:pointer;text-align:start}
+@media(max-width:860px){.app{grid-template-columns:minmax(0,1fr)}.rail{display:none}
+.bottom{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;bottom:0;inset-inline:0;background:var(--card);border-top:1px solid var(--line);z-index:20;padding-bottom:var(--sab)}
+.bottom a{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--mut);text-decoration:none;padding:8px 0;min-height:58px;position:relative}
+.bottom a.on{color:var(--br2);font-weight:600}.bottom svg{width:22px;height:22px}
+.bottom a b{position:absolute;top:4px;inset-inline-start:calc(50% + 6px);background:#d8342c;color:#fff;font-size:11px;min-width:18px;height:18px;border-radius:99px;display:grid;place-items:center}}
+@media(max-width:600px){table{font-size:14px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:7.5em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7em;margin-inline-start:-7.5em;color:var(--mut);font-size:13px}.stack td:empty{display:none}
+.wday{grid-template-columns:minmax(0,1fr)}.reg-row{grid-template-columns:52px minmax(0,1fr)}.reg-row>.btn{grid-column:2;justify-self:start}.sync{display:none}.top{gap:6px}}
+@media(prefers-reduced-motion:reduce){.toast,.pop{transition:none}}
+</style>
+<script>new MutationObserver(()=>{for(const c of document.querySelectorAll('.stack td:not([data-l])')){let i=0,p=c;while(p=p.previousElementSibling)i+=p.colSpan;c.dataset.l=c.closest('table').rows[0].cells[i]?.textContent||''}}).observe(document,{childList:true,subtree:true})</script>
+</head>
+<body>
+<div id="root"></div>
+<div class="modal" id="modal"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="pop" id="pop" role="status"></div>
+<div class="toast" id="toast" role="status"></div>
+<script src="supabase.js"></script>
+<script>
+{
+const SB_URL='https://lnsxxmnwilkgfmcoxidc.supabase.co',SB_KEY='sb_publishable_Dl_K3CSKR6qjy33GTAB2cw_uuDtPZrR',FN=SB_URL+'/functions/v1/push-alerts';
+const sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const $=s=>document.querySelector(s);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-3);
+const z=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate());
+const today=()=>ymd(new Date());
+const addDays=(s,n)=>{const d=new Date(s+'T12:00');d.setDate(d.getDate()+n);return ymd(d)};
+const curMonth=()=>today().slice(0,7);
+const LS=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}};
+let lang=LS('rafiq-lang')==='en'?'en':'ar';
+/* ================= i18n ================= */
+const TX={ar:{
+app:'رفيق المدرس',tagline:'طلابك وحصصك وتقارير واتساب في مكان واحد',home:'الرئيسية',groups:'المجموعات',students:'الطلاب',payments:'المصاريف',exams:'الامتحانات',materials:'المذكرات والفيديوهات',alerts:'الإشعارات',prefs:'الإعدادات',more:'المزيد',
+group:'مجموعة',student:'ملف الطالب',session:'تسجيل الحصة',exam:'امتحان',
+email:'الإيميل',password:'كلمة السر',signin:'دخول',signup:'حساب جديد',signinBtn:'ادخل',signupBtn:'اعمل الحساب',authHint:'حسابك بيحفظ بياناتك أونلاين وبتوصلها من الموبايل والكمبيوتر.',checkEmail:'بعتنالك إيميل تأكيد. افتحه ودوس على اللينك، وبعدين ارجع هنا وادخل.',authErr:'الإيميل أو كلمة السر غلط',pwShort:'كلمة السر لازم تكون 6 حروف على الأقل',logout:'خروج',
+welcome:'أهلًا بيك في رفيق المدرس',welcomeP:'طلابك ومجموعاتك وحضورهم ودرجاتهم ومصاريفهم في مكان واحد، وتقرير كل حصة يوصل لولي الأمر على واتساب بضغطة.',yourName:'اسمك (هيظهر في الرسايل)',center:'اسم السنتر أو المادة',startDemo:'ابدأ ببيانات تجريبية',startEmpty:'ابدأ فاضي',demoNote:'البيانات التجريبية أسماء وأرقام وهمية عشان تجرب، وتقدر تمسحها من الإعدادات.',
+todaySessions:'حصص النهارده',noToday:'مفيش حصص في الجدول النهارده',inSchedule:'مجموعة في الجدول',studentsN:'طالب',recorded:'اتسجلت ✓',openSend:'افتح وابعت التقارير',startSession:'ابدأ الحصة',extra:'حصة إضافية أو تعويضية؟',recordSession:'سجّل حصة',
+next7:'الحصص الجاية (7 أيام)',noNext:'مفيش حصص في الجدول الأسبوع ده. حدد أيام المجموعات من صفحة المجموعات.',tomorrow:'بكرة',examTag:'امتحان',
+kStudents:'الطلاب',inGroups:'في {n} مجموعة',kAtt:'نسبة الحضور {m}',sessionsN:'{n} حصة',kCollected:'اتحصّل الشهر ده',kUnpaid:'لسه مدفعوش',latestAlerts:'آخر الإشعارات',all:'الكل',noAlerts:'مفيش حاجة محتاجة انتباهك دلوقتي.',income6:'المحصّل آخر 6 شهور',
+newGroup:'+ مجموعة جديدة',addFirstGroup:'ابدأ بإضافة أول مجموعة.',perMonth:'/ شهر',announce:'إعلان للمجموعة',edit:'تعديل',addStudent:'+ طالب',sessions:'الحصص',date:'التاريخ',lesson:'الدرس',attendance:'الحضور',reports:'التقارير',sentOf:'{a} من {b} اتبعتت',open:'افتح',noSessions:'لسه مفيش حصص متسجلة.',noStudents:'مفيش طلاب.',
+newStudent:'+ طالب جديد',search:'دوّر بالاسم أو الرقم',allGroups:'كل المجموعات',onlyUnpaid:'اللي عليهم فلوس بس',stopped:'طلاب موقوفين',parent:'ولي الأمر',studentPh:'الطالب',paid:'دفع',left:'باقي {x}',level:'المستوى',avgGrade:'متوسط الدرجات',hwCommit:'الالتزام بالواجب',noGroup:'بدون مجموعة',suspended:'موقوف',
+summaryReport:'التقرير المجمع',sendSummary:'ابعت التقرير المجمع',rWeek:'آخر أسبوع',rMonth:'الشهر ده',rLast:'الشهر اللي فات',rAll:'من أول الاشتراك',rCustom:'فترة مخصوصة',sessionsInRange:'{n} حصة في الفترة دي',
+tAtt:'الحضور والدرجات',tExams:'الامتحانات',tPay:'المصاريف',tLog:'سجل الواتساب',grade:'الدرجة',hw:'الواجب',report:'تقرير',noExamRes:'مفيش نتايج امتحانات.',addPay:'+ تسجيل دفعة',feeReminder:'تذكير بالمصاريف',month:'الشهر',amount:'المبلغ',method:'الطريقة',del:'حذف',noPays:'مفيش مدفوعات.',toParent:'لولي الأمر',toStudent:'للطالب',noLog:'لسه مفيش رسايل اتبعتت.',
+present:'حاضر',absent:'غائب',sessionOf:'حصة {g}',delSession:'حذف الحصة',lessonPh:'مثلًا: المعادلات من الدرجة التانية',maxGrade:'الدرجة النهائية لاختبار الحصة',nextHw:'واجب الحصة الجاية',allPresent:'الكل حاضر',savedLive:'بيتحفظ أول بأول',rating:'التقييم',noteCol:'ملاحظة',sendReports:'ابعت التقارير',sendHint:'كل زرار بيفتح واتساب والتقرير مكتوب جاهز، وأنت بتدوس إرسال.',sentN:'{a} من {b} اتبعتلهم',sent:'اتبعت ✓',
+hwDone:'عمل الواجب',hwPart:'الواجب ناقص',hwNo:'لم يعمل الواجب',
+files:'ملفات الحصة',filesHint:'ارفع مذكرات أو صور أو فيديوهات، أو حط لينك فيديو من يوتيوب. كل ملف بيوصل للطلاب كلينك في التقرير.',chooseFiles:'اختار ملفات',dropHere:'أو اسحب الملفات هنا',addVideoLink:'+ لينك فيديو',noFiles:'مفيش ملفات للحصة دي.',fileName:'اسم الملف',uploading:'بيرفع {n}…',uploaded:'اترفع',tooBig:'{n} أكبر من 50 ميجا. ارفعه على يوتيوب أو درايف وحط اللينك.',upErr:'الرفع فشل: {e}',rename:'تغيير الاسم',sendFiles:'ابعت الملفات للمجموعة',videoLink:'لينك الفيديو',linkHttps:'اللينك لازم يبدأ بـ https://',doc:'مستند',video:'فيديو',link:'لينك',
+fees:'المصاريف',collected:'اتحصّل {m}',remaining:'المتبقي',remindAll:'تذكير لكل اللي عليهم ({n})',required:'المطلوب',paidCol:'المدفوع',status:'الحالة',settled:'خالص',payX:'دفع {x}',otherAmount:'مبلغ تاني',setFees:'حدد مصاريف شهرية للمجموعات الأول.',payRecorded:'اتسجل إنه دفع',
+newExam:'+ امتحان جديد',examCol:'الامتحان',outOf:'النهاية',results:'النتايج',noExams:'مفيش امتحانات لسه.',avg:'المتوسط',sendResult:'إرسال النتيجة',
+matAdd:'+ إضافة',matHint:'ارفع مذكرة أو فيديو، أو حط لينك، وابعته للمجموعة كلها على واتساب.',openLink:'افتح',sendToGroup:'ابعت للمجموعة',noMat:'لسه مفيش مذكرات.',allGroupsShort:'كل المجموعات',
+markAllRead:'علّم الكل كمقروء',alertsHint:'الإشعارات بتتحسب تلقائي من الجدول والحضور والدرجات والمصاريف.',newTab:'الجديد',readTab:'اتقرت',allTab:'الكل',ok:'تمام',noAlertsNow:'مفيش إشعارات دلوقتي',
+pushTitle:'إشعارات الموبايل',pushOn:'شغالة على الجهاز ده ✓',pushOff:'مقفولة على الجهاز ده',pushEnable:'فعّل الإشعارات',pushTest:'ابعت إشعار تجربة',pushDisable:'اقفلها',pushDenied:'الإذن مرفوض من إعدادات المتصفح. افتح إعدادات الموقع واسمح بالإشعارات.',pushUnsupported:'المتصفح ده مش بيدعم الإشعارات.',pushIos:'على الآيفون: نزّل التطبيق على الشاشة الرئيسية الأول، وبعدين فعّل الإشعارات من جواه.',pushHint:'بتوصلك والتطبيق مقفول: قبل الحصة، لو حصة متسجلتش، غياب متكرر، مصاريف، وامتحان بكرة.',pushTestSent:'اتبعت — المفروض يوصلك خلال ثواني',pushFail:'معرفتش أفعّلها: {e}',
+newAlert:'إشعار جديد',view:'عرض',
+yourData:'بياناتك',teacherName:'اسمك',notifSettings:'أنواع الإشعارات',remindBefore:'التذكير قبل الحصة بـ (دقيقة)',feeDay:'تنبيه المصاريف يبدأ يوم (من الشهر)',templates:'قوالب رسايل الواتساب',tplHint:'الكلام اللي بين { } بيتملا لوحده.',resetTpl:'رجّع الأصلي',msgLang:'لغة رسايل الواتساب',backup:'نسخة احتياطية',backupHint:'بياناتك محفوظة أونلاين على حسابك وبتوصلها من أي جهاز.',copyAll:'انسخ كل البيانات',import:'استيراد',clearDemo:'امسح البيانات التجريبية',wipe:'امسح كل حاجة',appearance:'الشكل واللغة',language:'اللغة',theme:'الوضع',light:'فاتح',dark:'غامق',system:'زي الجهاز',account:'الحساب',
+install:'نزّل التطبيق على موبايلك',installed:'التطبيق متثبت ✓',iosInstall:'على الآيفون: دوس زرار المشاركة في Safari، وبعدين "إضافة إلى الشاشة الرئيسية".',androidInstall:'من قايمة المتصفح (⋮) اختار "تثبيت التطبيق" أو "إضافة للشاشة الرئيسية".',
+groupNew:'مجموعة جديدة',groupEdit:'تعديل المجموعة',groupName:'اسم المجموعة',subject:'المادة',gradeLvl:'الصف',time:'الميعاد',monthlyFee:'المصاريف الشهرية (ج.م)',days:'الأيام',color:'اللون',save:'حفظ',cancel:'إلغاء',delGroup:'حذف المجموعة',saved:'اتحفظ',
+studentNew:'طالب جديد',studentEdit:'تعديل الطالب',name:'الاسم',parentPhone:'رقم ولي الأمر',studentPhone:'رقم الطالب',notes:'ملاحظات',stillActive:'الطالب لسه مشترك',
+payFor:'دفعة — {s}',forMonth:'عن شهر',payDate:'تاريخ الدفع',cash:'كاش',vcash:'فودافون كاش',instapay:'إنستاباي',bank:'تحويل بنكي',
+examNew:'امتحان جديد',examEdit:'تعديل الامتحان',title:'العنوان',examPh:'امتحان شهر نوفمبر',matTitle:'مذكرة أو فيديو',type:'النوع',desc:'وصف قصير',uploadOr:'ارفع ملف أو حط لينك',
+pickGroup:'المجموعة',start:'ابدأ',addGroupFirst:'ضيف مجموعة الأول',yes:'أيوه، كمّل',no:'لأ',
+cDelSession:'تحذف الحصة دي بكل درجاتها وملفاتها؟',cDelGroup:'تحذف المجموعة؟ الطلاب هيفضلوا من غير مجموعة.',cDelStudent:'تحذف الطالب نهائيًا؟ (لو عايز توقفه بس شيل علامة "لسه مشترك")',cDelPay:'تحذف الدفعة دي؟',cDelExam:'تحذف الامتحان ونتايجه؟',cDel:'تحذفها؟',cClearDemo:'تمسح كل البيانات التجريبية؟',cWipe:'تمسح كل حاجة وترجع لأول مرة؟',
+msgEditable:'الرسالة (تقدر تعدّل فيها)',openWA:'افتح واتساب',copyText:'انسخ النص',copied:'اتنسخ',selectCopy:'حدد النص وانسخه',noNumber:'مفيش رقم',send:'ابعت',toParents:'لأولياء الأمور',toStudents:'للطلاب',bulkHint:'واتساب بيسمح برسالة لكل شخص لوحده، فهتدوس "ابعت" قدام كل اسم.',done:'خلصت',msgNameHint:'الرسالة — اكتب {الطالب} لو عايز الاسم يتحط لوحده',feeEach:'كل رسالة فيها المبلغ المتبقي على الطالب.',announceFor:'إعلان لمجموعة {g}',feeTitle:'تذكير المصاريف — {m}',
+backupPaste:'الصق النسخة هنا. هتحل مكان البيانات الحالية.',importBad:'النص ده مش نسخة صحيحة',imported:'اتستوردت',close:'قفل',copy:'انسخ',
+syncSaving:'بيحفظ…',syncSaved:'محفوظ ✓',syncOffline:'مفيش نت — هيتحفظ لما يرجع',syncLoading:'بيحمّل…',
+lvlNone:'لسه مفيش بيانات',lvlA:'ممتاز',lvlB:'جيد جدًا',lvlC:'جيد',lvlD:'يحتاج متابعة',
+aSoon:'حصة {g} كمان {m} دقيقة',aSoonD:'الساعة {t} — {n} طالب',aMiss:'حصة {g} النهارده لسه متسجلتش',aMissD:'سجّل الحضور والدرجات عشان التقارير تطلع',aNoGrade:'حصة {g} من غير درجات أو واجب',aNoGradeD:'الحضور متسجل بس الدرجات لأ',aAbs:'{s} غاب {n} حصص ورا بعض',aAbsD:'آخر غياب {d}',aHw:'{s} مش بيعمل الواجب ({n} مرات ورا بعض)',aHwD:'المجموعة: {g}',aDrop:'درجات {s} نزلت',aDropD:'متوسط آخر حصتين {a}% بدل {b}%',aFee:'{n} طالب لسه مدفعوش {m}',aFeeD:'الإجمالي المتبقي {x}',aExam:'امتحان "{e}" {w}',today:'النهارده',
+actStart:'ابدأ الحصة',actRecord:'سجّل الحصة',actFinish:'كمّل التسجيل',actParent:'ابعت لولي الأمر',actProfile:'الملف',actSummary:'تقرير مجمع',actFees:'صفحة المصاريف',actFeeAll:'ابعت تذكير للكل',actExam:'افتح الامتحان',
+kSoon:'حصة قربت',kMissing:'حصة متسجلتش',kAbsent:'غياب متكرر',kFee:'مصاريف متأخرة',kHw:'واجب متكرر',kDrop:'هبوط في الدرجات',kExam:'امتحان قريب',
+tplsession:'تقرير الحصة',tplsummary:'التقرير المجمع',tplfee:'تذكير المصاريف',tplabsent:'تنبيه الغياب',tplexam:'نتيجة امتحان',tplmaterial:'مذكرة أو فيديو',tplfiles:'ملفات الحصة',tplannounce:'إعلان',
+none:'لا يوجد',notGraded:'لم يُقيّم',paidFor:'مدفوعة لشهر {m}',leftFor:'باقي {x} عن {m}',from:'من {a} إلى {b}',sinceStart:'من أول الاشتراك',monthOf:'شهر {m}',lastWeek:'آخر أسبوع',
+cur:'ج.م'},
+en:{
+app:'Tutor Buddy',tagline:'Your students, sessions and WhatsApp reports in one place',home:'Home',groups:'Groups',students:'Students',payments:'Fees',exams:'Exams',materials:'Handouts & videos',alerts:'Notifications',prefs:'Settings',more:'More',
+group:'Group',student:'Student profile',session:'Session',exam:'Exam',
+email:'Email',password:'Password',signin:'Sign in',signup:'New account',signinBtn:'Sign in',signupBtn:'Create account',authHint:'Your account keeps your data online so you can reach it from your phone and computer.',checkEmail:'We sent you a confirmation email. Open it, tap the link, then come back and sign in.',authErr:'Wrong email or password',pwShort:'Password must be at least 6 characters',logout:'Sign out',
+welcome:'Welcome to Tutor Buddy',welcomeP:'Groups, students, attendance, grades and fees in one place, and every session report reaches the parent on WhatsApp in one tap.',yourName:'Your name (shown in messages)',center:'Center or subject',startDemo:'Start with sample data',startEmpty:'Start empty',demoNote:'Sample data uses made-up names and numbers so you can try things; clear it from Settings.',
+todaySessions:'Today\'s sessions',noToday:'No sessions scheduled today',inSchedule:'group(s) scheduled',studentsN:'students',recorded:'recorded ✓',openSend:'Open & send reports',startSession:'Start session',extra:'Extra or make-up session?',recordSession:'Record session',
+next7:'Coming up (next 7 days)',noNext:'Nothing scheduled this week. Set group days in Groups.',tomorrow:'Tomorrow',examTag:'Exam',
+kStudents:'Students',inGroups:'in {n} groups',kAtt:'Attendance {m}',sessionsN:'{n} sessions',kCollected:'Collected this month',kUnpaid:'Not paid yet',latestAlerts:'Latest notifications',all:'All',noAlerts:'Nothing needs your attention right now.',income6:'Collected, last 6 months',
+newGroup:'+ New group',addFirstGroup:'Start by adding your first group.',perMonth:'/ month',announce:'Announce to group',edit:'Edit',addStudent:'+ Student',sessions:'Sessions',date:'Date',lesson:'Lesson',attendance:'Attendance',reports:'Reports',sentOf:'{a} of {b} sent',open:'Open',noSessions:'No sessions recorded yet.',noStudents:'No students.',
+newStudent:'+ New student',search:'Search by name or number',allGroups:'All groups',onlyUnpaid:'Unpaid only',stopped:'Inactive students',parent:'Parent',studentPh:'Student',paid:'Paid',left:'{x} due',level:'Level',avgGrade:'Average grade',hwCommit:'Homework',noGroup:'No group',suspended:'Inactive',
+summaryReport:'Summary report',sendSummary:'Send summary report',rWeek:'Last week',rMonth:'This month',rLast:'Last month',rAll:'Since joining',rCustom:'Custom range',sessionsInRange:'{n} sessions in this range',
+tAtt:'Attendance & grades',tExams:'Exams',tPay:'Fees',tLog:'WhatsApp log',grade:'Grade',hw:'Homework',report:'Report',noExamRes:'No exam results.',addPay:'+ Record payment',feeReminder:'Fee reminder',month:'Month',amount:'Amount',method:'Method',del:'Delete',noPays:'No payments.',toParent:'To parent',toStudent:'To student',noLog:'No messages sent yet.',
+present:'Present',absent:'Absent',sessionOf:'{g} session',delSession:'Delete session',lessonPh:'e.g. Quadratic equations',maxGrade:'Quiz out of',nextHw:'Homework for next time',allPresent:'All present',savedLive:'saved as you go',rating:'Rating',noteCol:'Note',sendReports:'Send reports',sendHint:'Each button opens WhatsApp with the report ready; you just tap send.',sentN:'{a} of {b} sent',sent:'Sent ✓',
+hwDone:'Done',hwPart:'Partly done',hwNo:'Not done',
+files:'Session files',filesHint:'Upload handouts, images or videos, or add a YouTube link. Each file reaches students as a link in the report.',chooseFiles:'Choose files',dropHere:'or drop files here',addVideoLink:'+ Video link',noFiles:'No files for this session.',fileName:'File name',uploading:'Uploading {n}…',uploaded:'Uploaded',tooBig:'{n} is over 50 MB. Put it on YouTube or Drive and add the link.',upErr:'Upload failed: {e}',rename:'Rename',sendFiles:'Send files to group',videoLink:'Video link',linkHttps:'Link must start with https://',doc:'Document',video:'Video',link:'Link',
+fees:'Fees',collected:'Collected {m}',remaining:'Remaining',remindAll:'Remind everyone who owes ({n})',required:'Due',paidCol:'Paid',status:'Status',settled:'Settled',payX:'Pay {x}',otherAmount:'Other amount',setFees:'Set monthly fees on your groups first.',payRecorded:'Payment recorded',
+newExam:'+ New exam',examCol:'Exam',outOf:'Out of',results:'Results',noExams:'No exams yet.',avg:'Average',sendResult:'Send result',
+matAdd:'+ Add',matHint:'Upload a handout or video, or add a link, and send it to the whole group on WhatsApp.',openLink:'Open',sendToGroup:'Send to group',noMat:'No handouts yet.',allGroupsShort:'All groups',
+markAllRead:'Mark all as read',alertsHint:'Notifications are worked out automatically from your schedule, attendance, grades and fees.',newTab:'New',readTab:'Read',allTab:'All',ok:'OK',noAlertsNow:'No notifications right now',
+pushTitle:'Phone notifications',pushOn:'On for this device ✓',pushOff:'Off for this device',pushEnable:'Turn on notifications',pushTest:'Send a test',pushDisable:'Turn off',pushDenied:'Permission is blocked in the browser. Open site settings and allow notifications.',pushUnsupported:'This browser doesn\'t support notifications.',pushIos:'On iPhone: add the app to your Home Screen first, then turn notifications on from inside it.',pushHint:'They arrive even when the app is closed: before a session, unrecorded sessions, repeated absences, fees, and exams tomorrow.',pushTestSent:'Sent — it should arrive in a few seconds',pushFail:'Couldn\'t turn on: {e}',
+newAlert:'New notification',view:'View',
+yourData:'Your details',teacherName:'Your name',notifSettings:'Notification types',remindBefore:'Remind me before a session (minutes)',feeDay:'Start fee alerts on day (of month)',templates:'WhatsApp message templates',tplHint:'Words in { } are filled in automatically.',resetTpl:'Reset',msgLang:'WhatsApp message language',backup:'Backup',backupHint:'Your data is saved online in your account and reachable from any device.',copyAll:'Copy all data',import:'Import',clearDemo:'Clear sample data',wipe:'Erase everything',appearance:'Look & language',language:'Language',theme:'Theme',light:'Light',dark:'Dark',system:'System',account:'Account',
+install:'Install the app on your phone',installed:'App installed ✓',iosInstall:'On iPhone: tap Share in Safari, then "Add to Home Screen".',androidInstall:'From the browser menu (⋮) choose "Install app" or "Add to Home screen".',
+groupNew:'New group',groupEdit:'Edit group',groupName:'Group name',subject:'Subject',gradeLvl:'Grade',time:'Time',monthlyFee:'Monthly fee (EGP)',days:'Days',color:'Colour',save:'Save',cancel:'Cancel',delGroup:'Delete group',saved:'Saved',
+studentNew:'New student',studentEdit:'Edit student',name:'Name',parentPhone:'Parent\'s number',studentPhone:'Student\'s number',notes:'Notes',stillActive:'Still enrolled',
+payFor:'Payment — {s}',forMonth:'For month',payDate:'Paid on',cash:'Cash',vcash:'Vodafone Cash',instapay:'InstaPay',bank:'Bank transfer',
+examNew:'New exam',examEdit:'Edit exam',title:'Title',examPh:'November exam',matTitle:'Handout or video',type:'Type',desc:'Short description',uploadOr:'Upload a file or add a link',
+pickGroup:'Group',start:'Start',addGroupFirst:'Add a group first',yes:'Yes, go ahead',no:'No',
+cDelSession:'Delete this session with its grades and files?',cDelGroup:'Delete the group? Its students will have no group.',cDelStudent:'Delete this student for good? (To pause, untick "Still enrolled")',cDelPay:'Delete this payment?',cDelExam:'Delete the exam and its results?',cDel:'Delete it?',cClearDemo:'Clear all sample data?',cWipe:'Erase everything and start over?',
+msgEditable:'Message (you can edit it)',openWA:'Open WhatsApp',copyText:'Copy text',copied:'Copied',selectCopy:'Select the text and copy it',noNumber:'No number',send:'Send',toParents:'To parents',toStudents:'To students',bulkHint:'WhatsApp sends one person at a time, so tap "Send" next to each name.',done:'Done',msgNameHint:'Message — write {student} to insert each name',feeEach:'Each message includes what that student owes.',announceFor:'Announcement for {g}',feeTitle:'Fee reminder — {m}',
+backupPaste:'Paste a backup here. It replaces your current data.',importBad:'That isn\'t a valid backup',imported:'Imported',close:'Close',copy:'Copy',
+syncSaving:'Saving…',syncSaved:'Saved ✓',syncOffline:'Offline — will save when back',syncLoading:'Loading…',
+lvlNone:'No data yet',lvlA:'Excellent',lvlB:'Very good',lvlC:'Good',lvlD:'Needs follow-up',
+aSoon:'{g} starts in {m} min',aSoonD:'At {t} — {n} students',aMiss:'{g} today isn\'t recorded yet',aMissD:'Record attendance and grades so reports are ready',aNoGrade:'{g} has no grades or homework',aNoGradeD:'Attendance is in, grades aren\'t',aAbs:'{s} missed {n} sessions in a row',aAbsD:'Last absence {d}',aHw:'{s} skipped homework {n} times in a row',aHwD:'Group: {g}',aDrop:'{s}\'s grades dropped',aDropD:'Last two sessions {a}% vs {b}% before',aFee:'{n} students haven\'t paid {m}',aFeeD:'Total due {x}',aExam:'Exam "{e}" {w}',today:'today',
+actStart:'Start session',actRecord:'Record it',actFinish:'Finish recording',actParent:'Message parent',actProfile:'Profile',actSummary:'Summary report',actFees:'Fees page',actFeeAll:'Remind everyone',actExam:'Open exam',
+kSoon:'Session soon',kMissing:'Unrecorded',kAbsent:'Absences',kFee:'Fees due',kHw:'Homework',kDrop:'Grade drop',kExam:'Exams',
+tplsession:'Session report',tplsummary:'Summary report',tplfee:'Fee reminder',tplabsent:'Absence alert',tplexam:'Exam result',tplmaterial:'Handout or video',tplfiles:'Session files',tplannounce:'Announcement',
+none:'None',notGraded:'Not graded',paidFor:'Paid for {m}',leftFor:'{x} due for {m}',from:'{a} to {b}',sinceStart:'Since joining',monthOf:'{m}',lastWeek:'Last week',
+cur:'EGP'}};
+const t=(k,v)=>{let s=(TX[lang]&&TX[lang][k])??TX.ar[k]??k;if(v)s=s.replace(/\{(\w+)\}/g,(m,x)=>v[x]!=null?v[x]:m);return s};
+const DAYS={ar:['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'],en:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']};
+const MONTHS={ar:['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],en:['January','February','March','April','May','June','July','August','September','October','November','December']};
+const dN=(i,L)=>DAYS[L||lang][i],mN=(i,L)=>MONTHS[L||lang][i];
+const monthName=(m,L)=>mN(+m.slice(5,7)-1,L)+' '+m.slice(0,4);
+const fmtD=(s,L)=>{if(!s)return'';const d=new Date(s+'T12:00');L=L||lang;return L==='en'?dN(d.getDay(),'en').slice(0,3)+' '+d.getDate()+' '+mN(d.getMonth(),'en').slice(0,3):dN(d.getDay(),'ar')+' '+d.getDate()+' '+mN(d.getMonth(),'ar')};
+const money=(n,L)=>(Math.round(n||0)).toLocaleString('en-US')+' '+((L||lang)==='en'?'EGP':'ج.م');
+const isPresent=a=>a==='ح'||a==='ت';
+const HWK=['تم','ناقص','لا'],hwName=(h,L)=>({'تم':TX[L||lang].hwDone,'ناقص':TX[L||lang].hwPart,'لا':TX[L||lang].hwNo})[h]||'';
+const attName=(a,L)=>a?(isPresent(a)?TX[L||lang].present:TX[L||lang].absent):'';
+const COLORS=['#0e5b63','#d8342c','#7a4cc2','#c27a00','#1f6fd1','#2f8f4e'];
+/* ================= icons ================= */
+const I={home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',groups:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2.5.6 4 2.6 4 6"/>',students:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>',payments:'<rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/>',exams:'<path d="M9 4h6M7 4H5v17h14V4h-2"/><path d="M8 11l2 2 4-4M8 17h8"/>',materials:'<path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/>',alerts:'<path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/>',prefs:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',more:'<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',video:'<rect x="2" y="5" width="14" height="14" rx="2"/><path d="M16 10l6-3v10l-6-3"/>',link:'<path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>',upload:'<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/>',download:'<path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 20h16"/>',phone:'<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>'};
+const ico=k=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+I[k]+'</svg>';
+const WAI='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.6-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"/></svg>';
+/* ================= templates ================= */
+const DEFTPL={ar:{
+session:'السلام عليكم ورحمة الله 🌿\nتقرير حصة {التاريخ} للطالب/ة {الطالب}\nالمجموعة: {المجموعة}\n📘 الدرس: {الدرس}\n✅ الحضور: {الحضور}\n📝 درجة الحصة: {الدرجة}\n📚 الواجب: {الواجب}\n⭐ التقييم: {التقييم}\n💬 ملاحظة: {الملاحظة}\n📌 واجب الحصة الجاية: {الواجب_القادم}\n{الملفات}\n\n{المدرس} — {السنتر}',
+summary:'السلام عليكم ورحمة الله 🌿\nالتقرير المجمع للطالب/ة {الطالب}\nالفترة: {الفترة}\n\n✅ الحضور: {الحضور_عدد} من {عدد_الحصص} حصة ({الحضور_نسبة})\n❌ الغياب: {الغياب}\n📝 متوسط درجات الحصص: {متوسط_الدرجات}\n🧪 الامتحانات: {الامتحانات}\n📚 الالتزام بالواجب: {الالتزام_بالواجب}\n💰 المصاريف: {المصاريف}\n🏅 المستوى العام: {المستوى}\n\n{المدرس} — {السنتر}',
+fee:'السلام عليكم 🌿\nتذكير بمصاريف شهر {الشهر} للطالب/ة {الطالب}: المتبقي {المبلغ}.\nشكرًا لحضرتك.\n{المدرس}',
+absent:'السلام عليكم 🌿\nنحيط حضرتك علمًا إن الطالب/ة {الطالب} غاب {عدد_الغياب} حصص متتالية، آخرها {التاريخ}.\nياريت نتواصل للاطمئنان.\n{المدرس}',
+exam:'السلام عليكم 🌿\nنتيجة امتحان "{العنوان}" للطالب/ة {الطالب}: {الدرجة} من {النهاية} ({النسبة}).\n{المدرس}',
+material:'السلام عليكم 🌿\nمذكرة/فيديو جديد لمجموعة {المجموعة}: {العنوان}\n{الوصف}\n🔗 {الرابط}\n{المدرس}',
+files:'السلام عليكم 🌿\nملفات حصة {التاريخ} — {الدرس}:\n{الملفات}\n\n{المدرس}'},
+en:{
+session:'Hello 🌿\nSession report for {student} — {date}\nGroup: {group}\n📘 Lesson: {lesson}\n✅ Attendance: {attendance}\n📝 Quiz: {grade}\n📚 Homework: {homework}\n⭐ Rating: {rating}\n💬 Note: {note}\n📌 Next homework: {next_homework}\n{files}\n\n{teacher} — {center}',
+summary:'Hello 🌿\nSummary report for {student}\nPeriod: {period}\n\n✅ Attendance: {present_count} of {sessions_count} ({attendance_pct})\n❌ Absences: {absences}\n📝 Average quiz grade: {avg_grade}\n🧪 Exams: {exams}\n📚 Homework: {homework_pct}\n💰 Fees: {fees}\n🏅 Overall level: {level}\n\n{teacher} — {center}',
+fee:'Hello 🌿\nA reminder about {month} fees for {student}: {amount} remaining.\nThank you.\n{teacher}',
+absent:'Hello 🌿\nJust to let you know, {student} has missed {absent_count} sessions in a row, the last on {date}.\nPlease get in touch.\n{teacher}',
+exam:'Hello 🌿\n{student}\'s result in "{title}": {grade} out of {max} ({pct}).\n{teacher}',
+material:'Hello 🌿\nNew handout/video for {group}: {title}\n{description}\n🔗 {link}\n{teacher}',
+files:'Hello 🌿\nFiles from the {date} session — {lesson}:\n{files}\n\n{teacher}'}};
+const VK={'الطالب':'student','التاريخ':'date','المجموعة':'group','الدرس':'lesson','الحضور':'attendance','الدرجة':'grade','الواجب':'homework','التقييم':'rating','الملاحظة':'note','الواجب_القادم':'next_homework','الملفات':'files','المدرس':'teacher','السنتر':'center','الفترة':'period','الحضور_عدد':'present_count','عدد_الحصص':'sessions_count','الحضور_نسبة':'attendance_pct','الغياب':'absences','متوسط_الدرجات':'avg_grade','الامتحانات':'exams','الالتزام_بالواجب':'homework_pct','المصاريف':'fees','المستوى':'level','الشهر':'month','المبلغ':'amount','عدد_الغياب':'absent_count','العنوان':'title','النهاية':'max','النسبة':'pct','الوصف':'description','الرابط':'link'};
+const fill=(tpl,v)=>{const all={...v};for(const[a,e]of Object.entries(VK)){if(v[e]!=null)all[a]=v[e]}return String(tpl||'').replace(/\{([^}\n]+)\}/g,(m,k)=>all[k]!=null?all[k]:m).replace(/ — $/gm,'').replace(/\n{3,}/g,'\n\n').trim()};
+/* ================= state ================= */
+const defPrefs=()=>({remind:30,feeDay:5,push:true,tz:(Intl.DateTimeFormat().resolvedOptions().timeZone||'Africa/Cairo'),msgLang:'ar',on:{soon:true,missing:true,absent:true,fee:true,hw:true,drop:true,exam:true}});
+const defMeta=()=>({teacher:'',center:'',tpl:{ar:{...DEFTPL.ar},en:{...DEFTPL.en}},prefs:defPrefs(),read:[],started:false,demo:false});
+const blank=()=>({meta:defMeta(),groups:[],students:[],sessions:[],exams:[],payments:[],materials:[],log:[]});
+let S=blank(),user=null,dirty=new Set(),tmr=null,saving=false,loaded=false;
+let ui={tab:'att',month:curMonth(),q:'',fg:'',fu:false,range:'month',from:'',to:'',atab:'new',akind:''};
+const ck=()=>'rafiq-cache-'+(user&&user.id),pk=()=>'rafiq-pending-'+(user&&user.id);
+function normMeta(m){m=m||{};const d=defMeta();const tpl=m.tpl||{};const isOld=tpl.session&&typeof tpl.session==='string';
+ return{...d,...m,tpl:{ar:{...DEFTPL.ar,...(isOld?tpl:tpl.ar||{})},en:{...DEFTPL.en,...(tpl.en||{})}},prefs:{...d.prefs,...(m.prefs||{}),on:{...d.prefs.on,...((m.prefs||{}).on||{})}},read:m.read||[]}}
+function cache(){LS(ck(),JSON.stringify(S));LS(pk(),JSON.stringify([...dirty]))}
+function setSync(k){const e=$('#sync');if(e)e.textContent=k?t(k):''}
+function mark(...k){k.forEach(x=>dirty.add(x));cache();clearTimeout(tmr);tmr=setTimeout(flush,700)}
+const markSes=(...d)=>mark(...d.filter(Boolean).map(x=>'ses-'+x.slice(0,7)));
+const allKeys=()=>['meta','groups','students','exams','payments','materials','log',...new Set(S.sessions.map(s=>'ses-'+s.date.slice(0,7)))];
+function body(k){if(k.startsWith('ses-'))return{items:S.sessions.filter(s=>s.date.slice(0,7)===k.slice(4))};if(k==='meta')return JSON.parse(JSON.stringify(S.meta));if(k==='log')return{items:S.log.slice(-800)};return{items:S[k]}}
+async function flush(){if(!user||!dirty.size)return;if(saving){tmr=setTimeout(flush,500);return}
+ saving=true;const ks=[...dirty];dirty.clear();setSync('syncSaving');
+ const rows=ks.map(k=>({teacher_id:user.id,key:k,body:body(k),updated_at:new Date().toISOString()}));
+ const empty=rows.filter(r=>r.key.startsWith('ses-')&&!r.body.items.length).map(r=>r.key);
+ try{const up=rows.filter(r=>!empty.includes(r.key));
+  if(up.length){const{error}=await sb.from('app_docs').upsert(up,{onConflict:'teacher_id,key'});if(error)throw error}
+  if(empty.length){const{error}=await sb.from('app_docs').delete().eq('teacher_id',user.id).in('key',empty);if(error)throw error}
+  setSync('syncSaved')}
+ catch(e){ks.forEach(k=>dirty.add(k));setSync(navigator.onLine?'syncSaving':'syncOffline');tmr=setTimeout(flush,6000)}
+ cache();saving=false}
+async function loadCloud(){const{data,error}=await sb.from('app_docs').select('key,body').eq('teacher_id',user.id);if(error)throw error;
+ const n=blank();for(const r of data){const v=r.body||{};if(r.key==='meta')n.meta=normMeta(v);else if(r.key.startsWith('ses-'))n.sessions.push(...(v.items||[]));else if(n[r.key])n[r.key]=v.items||[]}
+ return{n,empty:!data.length}}
+async function boot(){setSync('syncLoading');let local=null,pend=[];try{local=JSON.parse(LS(ck())||'null');pend=JSON.parse(LS(pk())||'[]')}catch(e){}
+ if(local){S={...blank(),...local,meta:normMeta(local.meta)};loaded=true;render()}
+ try{const{n,empty}=await loadCloud();
+  if(!empty){if(local&&pend.length){for(const k of pend){if(k==='meta')n.meta=S.meta;else if(k.startsWith('ses-')){n.sessions=n.sessions.filter(s=>s.date.slice(0,7)!==k.slice(4)).concat(S.sessions.filter(s=>s.date.slice(0,7)===k.slice(4)))}else n[k]=S[k]}S=n;mark(...pend)}else S=n}
+  else if(local&&local.meta&&local.meta.started){mark(...allKeys())}
+  if(!S.meta.prefs.tz){S.meta.prefs.tz=defPrefs().tz;mark('meta')}
+  setSync(dirty.size?'syncSaving':'syncSaved')}
+ catch(e){setSync('syncOffline')}
+ loaded=true;cache();render();checkNew(true);pushStatus().then(()=>{if(route()==='alerts'||route()==='prefs')render()})}
+let lastFetch=Date.now();
+document.addEventListener('visibilitychange',async()=>{if(document.visibilityState!=='visible'||!user)return;checkNew();if(Date.now()-lastFetch<60000||dirty.size||saving)return;lastFetch=Date.now();
+ try{const{n,empty}=await loadCloud();if(!empty&&!dirty.size){S=n;cache();if(!$('#modal').classList.contains('on')&&!document.activeElement.matches('input,textarea,select'))render()}}catch(e){}});
+addEventListener('online',()=>{if(dirty.size)flush()});
+/* ================= lookups & stats ================= */
+const G=id=>S.groups.find(g=>g.id===id),ST=id=>S.students.find(s=>s.id===id),SES=id=>S.sessions.find(s=>s.id===id);
+const act=()=>S.students.filter(s=>s.active!==false),inG=gid=>act().filter(s=>s.groupId===gid);
+const TV=L=>({teacher:S.meta.teacher||(L==='en'?'Teacher':'المدرس'),center:S.meta.center||''});
+function waNum(p){let d=String(p||'').replace(/[^\d]/g,'');if(!d)return'';if(d.startsWith('00'))d=d.slice(2);if(d.startsWith('0'))d='2'+d;else if(d.length===10&&d[0]==='1')d='20'+d;return d}
+const waUrl=(p,x)=>'https://wa.me/'+waNum(p)+'?text='+encodeURIComponent(x);
+function toast(x){const e=$('#toast');e.textContent=x;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2400)}
+function recs(sid,from,to){const st=ST(sid);if(!st)return[];return S.sessions.filter(s=>s.groupId===st.groupId&&s.rec&&s.rec[sid]&&(!from||s.date>=from)&&(!to||s.date<=to)).sort((a,b)=>a.date<b.date?-1:1).map(s=>({s,r:s.rec[sid]}))}
+function stats(sid,from,to){const L=recs(sid,from,to),n=L.length,pres=L.filter(x=>isPresent(x.r.a)).length,abs=L.filter(x=>!isPresent(x.r.a));
+ const sc=L.filter(x=>x.r.s!==''&&x.r.s!=null&&!isNaN(x.r.s)&&+x.s.max>0),avg=sc.length?Math.round(sc.reduce((a,x)=>a+Math.min(1,x.r.s/x.s.max),0)/sc.length*100):null;
+ const hl=L.filter(x=>x.r.h&&isPresent(x.r.a)),hw=hl.length?Math.round(hl.reduce((a,x)=>a+(x.r.h==='تم'?1:x.r.h==='ناقص'?.5:0),0)/hl.length*100):null,att=n?Math.round(pres/n*100):null;
+ const parts=[[att,.4],[avg,.4],[hw,.2]].filter(p=>p[0]!=null),w=parts.reduce((a,p)=>a+p[1],0),score=w?parts.reduce((a,p)=>a+p[0]*p[1],0)/w:null;
+ const lk=score==null?'lvlNone':score>=85?'lvlA':score>=75?'lvlB':score>=65?'lvlC':'lvlD';return{L,n,pres,abs,avg,hw,att,lk,score}}
+const feeOf=sid=>{const g=G((ST(sid)||{}).groupId);return g?+g.fee||0:0};
+const paid=(sid,m)=>S.payments.filter(p=>p.sid===sid&&p.month===m).reduce((a,p)=>a+(+p.amount||0),0);
+const owes=(sid,m)=>Math.max(0,feeOf(sid)-paid(sid,m));
+const pct=v=>v==null?'—':v+'%';
+function upcoming(days){const out=[];for(let i=0;i<days;i++){const ds=addDays(today(),i),dw=new Date(ds+'T12:00').getDay();
+ const gs=S.groups.filter(g=>(g.days||[]).includes(dw)).sort((a,b)=>(a.time||'')<(b.time||'')?-1:1);const ex=S.exams.filter(e=>e.date===ds);out.push({ds,dw,gs,ex})}return out}
+/* ================= alerts ================= */
+function alerts(){const P=S.meta.prefs,on=P.on,out=[],now=new Date(),td=today(),dow=now.getDay(),mins=now.getHours()*60+now.getMinutes();
+ for(const g of S.groups){if(!(g.days||[]).includes(dow)||!g.time)continue;const[h,m]=g.time.split(':').map(Number),tm=h*60+m,done=S.sessions.some(s=>s.groupId===g.id&&s.date===td);
+  if(on.soon&&!done&&tm-mins>0&&tm-mins<=P.remind)out.push({id:'soon-'+g.id+td,k:'soon',t:t('aSoon',{g:g.name,m:tm-mins}),d:t('aSoonD',{t:g.time,n:inG(g.id).length}),a:[['actStart','start',g.id]]});
+  if(on.missing&&!done&&mins-tm>=60)out.push({id:'miss-'+g.id+td,k:'missing',bad:1,t:t('aMiss',{g:g.name}),d:t('aMissD'),a:[['actRecord','start',g.id]]})}
+ if(on.missing)for(const s of S.sessions){if(s.date===td&&s.rec&&Object.keys(s.rec).length&&Object.values(s.rec).every(r=>(r.s===''||r.s==null)&&!r.h))out.push({id:'nog-'+s.id,k:'missing',t:t('aNoGrade',{g:(G(s.groupId)||{}).name||''}),d:t('aNoGradeD'),a:[['actFinish','go','session-'+s.id]]})}
+ for(const st of act()){const L=recs(st.id);if(!L.length)continue;const last=L[L.length-1].s;
+  let k=0;for(let i=L.length-1;i>=0&&!isPresent(L[i].r.a);i--)k++;
+  if(on.absent&&k>=2)out.push({id:'abs-'+st.id+last.id,k:'absent',bad:1,t:t('aAbs',{s:st.name,n:k}),d:t('aAbsD',{d:fmtD(last.date)}),a:[['actParent','waabs',st.id],['actProfile','go','student-'+st.id]]});
+  let h=0;for(let i=L.length-1;i>=0&&isPresent(L[i].r.a)&&L[i].r.h==='لا';i--)h++;
+  if(on.hw&&h>=2)out.push({id:'hw-'+st.id+last.id,k:'hw',bad:1,t:t('aHw',{s:st.name,n:h}),d:t('aHwD',{g:(G(st.groupId)||{}).name||''}),a:[['actSummary','wasum',st.id]]});
+  const sc=L.filter(x=>x.r.s!==''&&x.r.s!=null&&+x.s.max>0).map(x=>x.r.s/x.s.max*100);
+  if(on.drop&&sc.length>=4){const a=(sc.at(-1)+sc.at(-2))/2,pr=sc.slice(-6,-2),b=pr.reduce((x,y)=>x+y,0)/pr.length;if(b-a>=20)out.push({id:'drop-'+st.id+last.id,k:'drop',bad:1,t:t('aDrop',{s:st.name}),d:t('aDropD',{a:Math.round(a),b:Math.round(b)}),a:[['actProfile','go','student-'+st.id]]})}}
+ if(on.fee&&+td.slice(8)>=P.feeDay){const m=curMonth(),u=act().filter(s=>owes(s.id,m)>0);if(u.length)out.push({id:'fee-'+m+'-'+u.length,k:'fee',bad:1,t:t('aFee',{n:u.length,m:monthName(m)}),d:t('aFeeD',{x:money(u.reduce((a,s)=>a+owes(s.id,m),0))}),a:[['actFees','go','payments'],['actFeeAll','feeall','']]})}
+ if(on.exam){const tm=addDays(td,1);for(const e of S.exams)if(e.date===tm||e.date===td)out.push({id:'ex-'+e.id+e.date,k:'exam',t:t('aExam',{e:e.title,w:e.date===td?t('today'):t('tomorrow')}),d:(G(e.groupId)||{}).name||'',a:[['actExam','go','exam-'+e.id]]})}
+ return out}
+const isRead=a=>S.meta.read.includes(a.id),unread=A=>A.filter(a=>!isRead(a));
+/* ---- in-app popup + local notification for new alerts ---- */
+let seen=new Set();try{seen=new Set(JSON.parse(LS('rafiq-seen')||'[]'))}catch(e){}
+function checkNew(first){if(!loaded||!S.meta.started)return;const A=unread(alerts()),fresh=A.filter(a=>!seen.has(a.id));
+ fresh.forEach(a=>seen.add(a.id));LS('rafiq-seen',JSON.stringify([...seen].slice(-300)));
+ if(!fresh.length)return;const a=fresh[0],p=$('#pop');
+ p.innerHTML='<span class="ic">'+ico('alerts')+'</span><div class="sp"><b>'+esc(a.t)+'</b><div class="mut">'+esc(fresh.length>1?t('newAlert')+' +'+(fresh.length-1):a.d)+'</div></div><a class="btn s p" href="#alerts" data-act="popclose">'+t('view')+'</a><button class="ib" style="width:36px;height:36px" data-act="popclose" aria-label="'+t('close')+'">✕</button>';
+ p.classList.add('on');clearTimeout(p._t);p._t=setTimeout(()=>p.classList.remove('on'),9000);
+ if(!first&&document.visibilityState!=='visible'&&'Notification' in window&&Notification.permission==='granted'&&navigator.serviceWorker)navigator.serviceWorker.ready.then(r=>r.showNotification(a.t,{body:a.d,icon:'icon-192.png',tag:a.id,data:{url:'#alerts'}})).catch(()=>{});
+ renderChrome()}
+/* ================= layout ================= */
+const NAV=['home','groups','students','payments','exams','materials','alerts','prefs'];
+const NI={home:'home',groups:'groups',students:'students',payments:'payments',exams:'exams',materials:'materials',alerts:'alerts',prefs:'prefs'};
+let deferredInstall=null;const standalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function shell(){$('#root').innerHTML='<div class="app"><aside class="rail" id="rail"></aside><main><div class="top"><span class="t" id="ttl"></span><span class="sync" id="sync"></span><button class="ib" data-act="lang" aria-label="Language" id="langBtn"></button><button class="ib" data-act="theme" aria-label="Theme" id="themeBtn"></button><a class="ib" href="#alerts" aria-label="'+t('alerts')+'">'+ico('alerts')+'<b id="badge" hidden></b></a></div><div class="wrap" id="view"></div></main></div><nav class="bottom" id="bottom"></nav>'}
+function curNav(){const b=route().split('-')[0];return({group:'groups',student:'students',session:'groups',exam:'exams'})[b]||b}
+function renderChrome(){if(!$('#rail'))return;const cur=curNav(),n=loaded&&S.meta.started?unread(alerts()).length:0;
+ $('#rail').innerHTML='<div class="logo"><img src="icon-192.png" alt=""><div>'+t('app')+'<small>'+esc(S.meta.center||S.meta.teacher||t('tagline'))+'</small></div></div>'+NAV.map(h=>'<a class="nav'+(cur===h?' on':'')+'" href="#'+h+'">'+ico(NI[h])+t(h)+(h==='alerts'&&n?'<span class="cnt">'+n+'</span>':'')+'</a>').join('')+'<div class="grow"></div>'+(standalone()?'':'<button class="install" data-act="install">'+ico('phone')+'<span>'+t('install')+'</span></button>');
+ const inMore=['exams','materials','prefs','more','alerts'].includes(cur);
+ $('#bottom').innerHTML=[['home','home'],['groups','groups'],['students','students'],['payments','payments'],['more','more']].map(([h,i])=>'<a href="#'+h+'" class="'+((cur===h||(h==='more'&&inMore))?'on':'')+'">'+ico(i)+t(h)+(h==='more'&&n?'<b>'+n+'</b>':'')+'</a>').join('');
+ const b=$('#badge');if(b){b.hidden=!n;b.textContent=n}
+ $('#langBtn').textContent=lang==='ar'?'EN':'ع';
+ const th=document.documentElement.dataset.theme,dk=th==='dark'||(!th&&matchMedia('(prefers-color-scheme: dark)').matches);$('#themeBtn').innerHTML=ico(dk?'sun':'moon')}
+const waBtn=(sid,kind,x)=>'<button class="wab" title="WhatsApp" aria-label="WhatsApp" data-act="wa" data-sid="'+esc(sid)+'" data-kind="'+kind+'" data-x="'+esc(x||'')+'">'+WAI+'</button>';
+const phoneCell=(sid,p,kind,x)=>p?'<span class="phone"><bdi dir="ltr">'+esc(p)+'</bdi>'+waBtn(sid,kind||'summary',x)+'</span>':'<span class="mut">—</span>';
+/* ================= views ================= */
+const V={};
+V.welcome=()=>'<div class="card" style="max-width:640px"><h1>'+t('welcome')+'</h1><p class="mut">'+t('welcomeP')+'</p><form id="fWelcome"><div class="f2"><div><label>'+t('yourName')+'</label><input name="teacher" required></div><div><label>'+t('center')+'</label><input name="center"></div></div><div class="row" style="margin-top:16px"><button class="btn p" name="demo" value="1">'+t('startDemo')+'</button><button class="btn" name="demo" value="0">'+t('startEmpty')+'</button></div></form><p class="note" style="margin-top:14px">'+t('demoNote')+'</p></div>';
+V.home=A=>{const td=today(),U=upcoming(8),T0=U[0],m=curMonth();
+ const ms=S.sessions.filter(s=>s.date.slice(0,7)===m);let tot=0,pr=0;ms.forEach(s=>Object.values(s.rec||{}).forEach(r=>{tot++;if(isPresent(r.a))pr++}));
+ const un=act().filter(s=>owes(s.id,m)>0),col6=[];for(let i=5;i>=0;i--){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-i);const k=ymd(d).slice(0,7);col6.push([k,S.payments.filter(p=>p.month===k).reduce((a,p)=>a+(+p.amount||0),0)])}
+ const mx=Math.max(1,...col6.map(x=>x[1]));
+ const reg='<div class="register"><div class="row"><h1 style="color:#fff">'+t('todaySessions')+'</h1><span class="sp"></span><span style="opacity:.85">'+fmtD(td)+'</span></div><p style="opacity:.8;margin:4px 0 10px">'+(T0.gs.length?T0.gs.length+' '+t('inSchedule'):t('noToday'))+'</p>'+
+  T0.gs.map(g=>{const s=S.sessions.find(x=>x.groupId===g.id&&x.date===td);return '<div class="reg-row"><span class="tm">'+esc(g.time||'')+'</span><div><b>'+esc(g.name)+'</b><div style="opacity:.75;font-size:14px">'+inG(g.id).length+' '+t('studentsN')+(s?' — '+t('recorded'):'')+'</div></div>'+(s?'<a class="btn g s" href="#session-'+s.id+'">'+t('openSend')+'</a>':'<button class="btn s" data-act="start" data-id="'+g.id+'">'+t('startSession')+'</button>')+'</div>'}).join('')+
+  T0.ex.map(e=>'<div class="reg-row"><span class="tm">✎</span><div><b>'+esc(e.title)+'</b><div style="opacity:.75;font-size:14px">'+t('examTag')+' — '+esc((G(e.groupId)||{}).name||'')+'</div></div><a class="btn g s" href="#exam-'+e.id+'">'+t('open')+'</a></div>').join('')+
+  '<div class="reg-row"><span class="tm">+</span><span style="opacity:.85">'+t('extra')+'</span><button class="btn g s" data-act="pickstart">'+t('recordSession')+'</button></div></div>';
+ const nx=U.slice(1).filter(d=>d.gs.length||d.ex.length);
+ const week='<div class="card" style="margin-top:14px"><h2>'+t('next7')+'</h2><div class="week" style="margin-top:6px">'+(nx.length?nx.map((d,i)=>'<div class="wday"><div class="d"><b>'+(d.ds===addDays(td,1)?t('tomorrow'):dN(d.dw))+'</b><span>'+fmtD(d.ds)+'</span></div><div>'+d.gs.map(g=>'<div class="slot"><span class="tm">'+esc(g.time||'')+'</span><span class="dot" style="background:'+esc(g.color)+'"></span><a href="#group-'+g.id+'" class="sp" style="color:inherit"><b>'+esc(g.name)+'</b></a><span class="mut">'+inG(g.id).length+' '+t('studentsN')+'</span></div>').join('')+d.ex.map(e=>'<div class="slot"><span class="tag bad">'+t('examTag')+'</span><a href="#exam-'+e.id+'" class="sp" style="color:inherit"><b>'+esc(e.title)+'</b></a><span class="mut">'+esc((G(e.groupId)||{}).name||'')+'</span></div>').join('')+'</div></div>').join(''):'<p class="mut">'+t('noNext')+'</p>')+'</div></div>';
+ const k='<div class="grid" style="margin-top:14px"><div class="card"><div class="mut">'+t('kStudents')+'</div><div class="kpi">'+act().length+' <small>'+t('inGroups',{n:S.groups.length})+'</small></div></div><div class="card"><div class="mut">'+t('kAtt',{m:mN(+m.slice(5)-1)})+'</div><div class="kpi">'+(tot?Math.round(pr/tot*100)+'%':'—')+' <small>'+t('sessionsN',{n:ms.length})+'</small></div></div><div class="card"><div class="mut">'+t('kCollected')+'</div><div class="kpi">'+money(col6[5][1])+'</div></div><a class="card" href="#payments" style="text-decoration:none;color:inherit"><div class="mut">'+t('kUnpaid')+'</div><div class="kpi" style="color:var(--pen)">'+un.length+' <small>'+money(un.reduce((a,s)=>a+owes(s.id,m),0))+'</small></div></a></div>';
+ const UA=unread(A);
+ const bottom='<div class="grid" style="margin-top:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))"><div class="card"><div class="row"><h2>'+t('latestAlerts')+'</h2><span class="sp"></span><a href="#alerts">'+t('all')+'</a></div>'+(UA.length?UA.slice(0,4).map(alertHtml).join(''):'<p class="mut">'+t('noAlerts')+'</p>')+'</div><div class="card"><h2>'+t('income6')+'</h2><div class="bars" style="margin-top:14px">'+col6.map(([kk,v])=>'<div class="bar"><span>'+mN(+kk.slice(5)-1)+'</span><span><i style="width:'+Math.max(2,v/mx*100)+'%"></i></span><span class="num">'+money(v)+'</span></div>').join('')+'</div></div></div>';
+ return reg+week+k+bottom};
+const AK={soon:'kSoon',missing:'kMissing',absent:'kAbsent',fee:'kFee',hw:'kHw',drop:'kDrop',exam:'kExam'};
+function alertHtml(a){const u=!isRead(a);return '<div class="alert'+(a.bad?' bad':'')+(u?' unread':' read')+'"><span class="ic">'+ico('alerts')+'</span><div class="sp"><div class="tt"><b>'+esc(a.t)+'</b></div><div class="mut">'+esc(a.d)+' · '+t(AK[a.k])+'</div><div class="row" style="margin-top:8px">'+a.a.map(([k,c,v])=>'<button class="btn s'+(c.startsWith('wa')||c==='feeall'?' wa':'')+'" data-act="'+c+'" data-id="'+esc(v)+'" data-aid="'+esc(a.id)+'">'+t(k)+'</button>').join('')+(u?'<button class="btn s" data-act="read" data-aid="'+esc(a.id)+'">'+t('ok')+'</button>':'')+'</div></div></div>'}
+let PUSH={state:'unknown'};
+V.alerts=A=>{const kinds=[...new Set(A.map(a=>a.k))];let L=A.filter(a=>(!ui.akind||a.k===ui.akind)&&(ui.atab==='all'||(ui.atab==='new'?!isRead(a):isRead(a))));const nNew=unread(A).length;
+ return '<div class="row"><h1>'+t('alerts')+'</h1><span class="sp"></span>'+(nNew?'<button class="btn s" data-act="readall">'+t('markAllRead')+'</button>':'')+'</div><p class="mut">'+t('alertsHint')+' <a href="#prefs">'+t('prefs')+'</a></p>'+pushCard()+
+ '<div class="tabs">'+[['new',t('newTab')+(nNew?' ('+nNew+')':'')],['read',t('readTab')],['all',t('allTab')]].map(([k,x])=>'<button data-act="atab" data-id="'+k+'" class="'+(ui.atab===k?'on':'')+'">'+x+'</button>').join('')+'</div>'+
+ (kinds.length>1?'<div class="chips" style="margin-bottom:10px"><button class="chip'+(!ui.akind?' on':'')+'" data-act="akind" data-id="">'+t('all')+'</button>'+kinds.map(k=>'<button class="chip'+(ui.akind===k?' on':'')+'" data-act="akind" data-id="'+k+'">'+t(AK[k])+'</button>').join('')+'</div>':'')+
+ '<div class="card">'+(L.length?L.map(alertHtml).join(''):'<div class="empty">'+t('noAlertsNow')+' 👌</div>')+'</div>'};
+function pushCard(){const st=PUSH.state;let body;
+ if(st==='unsupported')body='<p class="mut">'+(isIOS&&!standalone()?t('pushIos'):t('pushUnsupported'))+'</p>';
+ else if(st==='denied')body='<p class="mut">'+t('pushDenied')+'</p>';
+ else if(st==='on')body='<div class="row"><span class="tag ok">'+t('pushOn')+'</span><span class="sp"></span><button class="btn s" data-act="pushtest">'+t('pushTest')+'</button><button class="btn s d" data-act="pushoff">'+t('pushDisable')+'</button></div>';
+ else body='<div class="row"><span class="tag">'+t('pushOff')+'</span><span class="sp"></span><button class="btn p s" data-act="pushon">'+t('pushEnable')+'</button></div>';
+ return '<div class="card" style="margin:12px 0"><div class="row" style="margin-bottom:6px"><span style="color:var(--br2);width:22px">'+ico('phone')+'</span><h3>'+t('pushTitle')+'</h3></div>'+body+'<p class="mut" style="margin:8px 0 0">'+t('pushHint')+'</p></div>'}
+V.groups=()=>'<div class="row"><h1>'+t('groups')+'</h1><span class="sp"></span><button class="btn p" data-act="groupForm">'+t('newGroup')+'</button></div><div class="cards" style="margin-top:16px">'+(S.groups.length?S.groups.map(g=>'<a class="card" href="#group-'+g.id+'" style="text-decoration:none;color:inherit;border-top:5px solid '+esc(g.color)+'"><h3>'+esc(g.name)+'</h3><div class="mut">'+esc([g.subject,g.grade].filter(Boolean).join(' — '))+'</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">'+(g.days||[]).map(d=>'<span class="tag">'+dN(d)+'</span>').join('')+'<span class="tag">'+esc(g.time||'')+'</span></div><div class="row mut" style="margin-top:10px"><span>'+inG(g.id).length+' '+t('studentsN')+'</span><span class="sp"></span><span>'+money(g.fee)+' '+t('perMonth')+'</span></div></a>').join(''):'<div class="empty card">'+t('addFirstGroup')+'</div>')+'</div>';
+V.group=id=>{const g=G(id);if(!g)return V.groups();const ss=S.sessions.filter(s=>s.groupId===id).sort((a,b)=>a.date<b.date?1:-1),st=inG(id);
+ return '<a href="#groups" class="mut">'+(lang==='ar'?'→ ':'← ')+t('groups')+'</a><div class="row" style="margin-top:6px"><span class="dot" style="background:'+esc(g.color)+'"></span><h1>'+esc(g.name)+'</h1><span class="sp"></span><button class="btn p" data-act="start" data-id="'+id+'">'+t('startSession')+'</button><button class="btn" data-act="bulk" data-kind="announce" data-id="'+id+'">'+t('announce')+'</button><button class="btn" data-act="groupForm" data-id="'+id+'">'+t('edit')+'</button></div><p class="mut">'+esc([g.subject,g.grade].filter(Boolean).join(' — '))+' · '+(g.days||[]).map(d=>dN(d)).join('، ')+' '+esc(g.time||'')+' · '+money(g.fee)+' '+t('perMonth')+'</p>'+
+ '<div class="row" style="margin-top:12px"><h2>'+t('students')+' ('+st.length+')</h2><span class="sp"></span><button class="btn s" data-act="studentForm" data-g="'+id+'">'+t('addStudent')+'</button></div><div class="cards" style="margin-top:10px">'+(st.length?st.map(stuCard).join(''):'<p class="mut">'+t('noStudents')+'</p>')+'</div>'+
+ '<div class="card" style="margin-top:14px"><h2>'+t('sessions')+'</h2>'+(ss.length?'<table class="stack"><thead><tr><th>'+t('date')+'</th><th>'+t('lesson')+'</th><th>'+t('attendance')+'</th><th>'+t('files')+'</th><th>'+t('reports')+'</th><th></th></tr></thead><tbody>'+ss.map(s=>{const r=Object.values(s.rec||{}),p=r.filter(x=>isPresent(x.a)).length,sent=new Set(S.log.filter(l=>l.ref===s.id).map(l=>l.sid)).size;return '<tr><td>'+fmtD(s.date)+'</td><td>'+esc(s.topic||'—')+'</td><td class="num">'+p+' / '+r.length+'</td><td>'+((s.files||[]).length||'—')+'</td><td><span class="tag '+(sent>=r.length&&r.length?'ok':'w')+'">'+t('sentOf',{a:sent,b:r.length})+'</span></td><td><a class="btn s" href="#session-'+s.id+'">'+t('open')+'</a></td></tr>'}).join('')+'</tbody></table>':'<p class="mut">'+t('noSessions')+'</p>')+'</div>'};
+function stuCard(s){const st=stats(s.id),m=curMonth(),o=owes(s.id,m),g=G(s.groupId),col=g?g.color:'#5b6b69',ini=(s.name||'?').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('');
+ return '<div class="card scard"><div class="hd"><span class="av" style="background:'+esc(col)+'">'+esc(ini)+'</span><div class="sp"><a href="#student-'+s.id+'" style="color:inherit;text-decoration:none"><h3>'+esc(s.name)+'</h3></a><div class="mut">'+esc(g?g.name:t('noGroup'))+'</div></div>'+(feeOf(s.id)?(o?'<span class="tag bad">'+t('left',{x:money(o)})+'</span>':'<span class="tag ok">'+t('paid')+'</span>'):'')+'</div>'+
+ '<div class="meters"><div><b>'+pct(st.att)+'</b><span>'+t('attendance')+'</span></div><div><b>'+pct(st.avg)+'</b><span>'+t('avgGrade')+'</span></div><div><b style="font-size:14px;line-height:1.9;color:'+(st.lk==='lvlD'?'var(--pen)':'inherit')+'">'+t(st.lk)+'</b><span>'+t('level')+'</span></div></div>'+
+ '<div class="ph"><span class="mut">'+t('parent')+'</span>'+phoneCell(s.id,s.parent,'summary','parent')+'</div><div class="ph"><span class="mut">'+t('studentPh')+'</span>'+phoneCell(s.id,s.phone,'summary','student')+'</div></div>'}
+V.students=()=>{const q=ui.q.trim(),m=curMonth(),L=act().filter(s=>(!q||s.name.toLowerCase().includes(q.toLowerCase())||(s.phone||'').includes(q)||(s.parent||'').includes(q))&&(!ui.fg||s.groupId===ui.fg)&&(!ui.fu||owes(s.id,m)>0)),inact=S.students.filter(s=>s.active===false);
+ return '<div class="row"><h1>'+t('students')+'</h1><span class="sp"></span><button class="btn p" data-act="studentForm">'+t('newStudent')+'</button></div><div class="row" style="margin:14px 0"><input id="q" type="search" placeholder="'+t('search')+'" value="'+esc(ui.q)+'" style="max-width:280px"><select id="fg" style="max-width:220px"><option value="">'+t('allGroups')+'</option>'+S.groups.map(g=>'<option value="'+g.id+'"'+(ui.fg===g.id?' selected':'')+'>'+esc(g.name)+'</option>').join('')+'</select><label class="in"><input type="checkbox" id="fu"'+(ui.fu?' checked':'')+'> '+t('onlyUnpaid')+'</label></div><div class="cards">'+(L.length?L.map(stuCard).join(''):'<div class="card empty">'+t('noStudents')+'</div>')+'</div>'+(inact.length?'<details style="margin-top:14px"><summary class="mut">'+t('stopped')+' ('+inact.length+')</summary>'+inact.map(s=>'<div style="padding:6px 0"><a href="#student-'+s.id+'">'+esc(s.name)+'</a></div>').join('')+'</details>':'')};
+function rangeOf(L){L=L||lang;const td=today(),T=TX[L];if(ui.range==='week')return[addDays(td,-6),td,T.lastWeek];if(ui.range==='month')return[curMonth()+'-01',td,monthName(curMonth(),L)];if(ui.range==='last'){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-1);const k=ymd(d).slice(0,7),e=new Date(d.getFullYear(),d.getMonth()+1,0);return[k+'-01',ymd(e),monthName(k,L)]}if(ui.range==='all')return['','',T.sinceStart];return[ui.from,ui.to,T.from.replace('{a}',ui.from?fmtD(ui.from,L):'…').replace('{b}',ui.to?fmtD(ui.to,L):'…')]}
+V.student=id=>{const s=ST(id);if(!s)return V.students();const st=stats(id),g=G(s.groupId),[f,to]=rangeOf(),tab=ui.tab;
+ const ex=S.exams.filter(e=>e.groupId===s.groupId&&e.res&&e.res[id]!=null&&e.res[id]!==''),pays=S.payments.filter(p=>p.sid===id).sort((a,b)=>a.month<b.month?1:-1),lg=S.log.filter(l=>l.sid===id).slice().reverse();let b='';
+ if(tab==='att')b=st.L.length?'<div class="strip" style="margin-bottom:12px">'+st.L.slice(-30).map(x=>'<span title="'+esc(fmtD(x.s.date))+'" style="background:'+(isPresent(x.r.a)?'var(--ok)':'#d8342c')+'"></span>').join('')+'</div><table class="stack"><thead><tr><th>'+t('date')+'</th><th>'+t('lesson')+'</th><th>'+t('attendance')+'</th><th>'+t('grade')+'</th><th>'+t('hw')+'</th><th>'+t('report')+'</th></tr></thead><tbody>'+st.L.slice().reverse().map(x=>'<tr><td>'+fmtD(x.s.date)+'</td><td>'+esc(x.s.topic||'—')+'</td><td><span class="tag '+(isPresent(x.r.a)?'ok':'bad')+'">'+attName(x.r.a)+'</span></td><td class="num">'+(x.r.s!==''&&x.r.s!=null?esc(x.r.s)+' / '+esc(x.s.max):'—')+'</td><td>'+(hwName(x.r.h)||'—')+'</td><td>'+waBtn(id,'session',x.s.id)+'</td></tr>').join('')+'</tbody></table>':'<p class="mut">'+t('noSessions')+'</p>';
+ if(tab==='exams')b=ex.length?'<table><thead><tr><th>'+t('examCol')+'</th><th>'+t('date')+'</th><th class="num">'+t('grade')+'</th><th></th></tr></thead><tbody>'+ex.map(e=>'<tr><td>'+esc(e.title)+'</td><td>'+fmtD(e.date)+'</td><td class="num">'+esc(e.res[id])+' / '+esc(e.max)+'</td><td>'+waBtn(id,'exam',e.id)+'</td></tr>').join('')+'</tbody></table>':'<p class="mut">'+t('noExamRes')+'</p>';
+ if(tab==='pay')b='<div class="row" style="margin-bottom:10px"><button class="btn p s" data-act="payForm" data-sid="'+id+'">'+t('addPay')+'</button>'+(owes(id,curMonth())?'<button class="btn wa s" data-act="wa" data-sid="'+id+'" data-kind="fee">'+t('feeReminder')+'</button>':'')+'</div>'+(pays.length?'<table class="stack"><thead><tr><th>'+t('month')+'</th><th>'+t('amount')+'</th><th>'+t('date')+'</th><th>'+t('method')+'</th><th></th></tr></thead><tbody>'+pays.map(p=>'<tr><td>'+monthName(p.month)+'</td><td class="num">'+money(p.amount)+'</td><td>'+esc(p.date)+'</td><td>'+esc(t(p.method)||p.method)+'</td><td><button class="btn s d" data-act="delPay" data-id="'+p.id+'">'+t('del')+'</button></td></tr>').join('')+'</tbody></table>':'<p class="mut">'+t('noPays')+'</p>');
+ if(tab==='log')b=lg.length?lg.map(l=>'<div class="row" style="padding:8px 0;border-bottom:1px solid var(--line)"><span class="tag">'+esc(t('tpl'+l.kind))+'</span><span>'+(l.to==='parent'?t('toParent'):t('toStudent'))+'</span><span class="sp"></span><span class="mut">'+new Date(l.at).toLocaleString(lang==='ar'?'ar-EG':'en-GB')+'</span></div>').join(''):'<p class="mut">'+t('noLog')+'</p>';
+ return '<a href="#students" class="mut">'+(lang==='ar'?'→ ':'← ')+t('students')+'</a><div class="row" style="margin-top:6px"><h1>'+esc(s.name)+'</h1>'+(s.active===false?'<span class="tag bad">'+t('suspended')+'</span>':'')+'<span class="sp"></span><button class="btn" data-act="studentForm" data-id="'+id+'">'+t('edit')+'</button></div><p class="mut">'+esc(g?g.name:t('noGroup'))+(s.notes?' · '+esc(s.notes):'')+'</p><div class="row" style="gap:18px;margin:6px 0 14px"><span>'+t('parent')+': '+phoneCell(id,s.parent,'summary','parent')+'</span><span>'+t('studentPh')+': '+phoneCell(id,s.phone,'summary','student')+'</span></div>'+
+ '<div class="grid"><div class="card"><div class="mut">'+t('attendance')+'</div><div class="kpi">'+pct(st.att)+' <small>'+st.pres+' / '+st.n+'</small></div></div><div class="card"><div class="mut">'+t('avgGrade')+'</div><div class="kpi">'+pct(st.avg)+'</div></div><div class="card"><div class="mut">'+t('hwCommit')+'</div><div class="kpi">'+pct(st.hw)+'</div></div><div class="card"><div class="mut">'+t('level')+'</div><div class="kpi" style="font-size:22px;color:'+(st.lk==='lvlD'?'var(--pen)':'var(--br2)')+'">'+t(st.lk)+'</div></div></div>'+
+ '<div class="card" style="margin-top:14px"><h2>'+t('summaryReport')+'</h2><div class="row" style="margin-top:10px"><select id="range" style="max-width:210px">'+[['week','rWeek'],['month','rMonth'],['last','rLast'],['all','rAll'],['custom','rCustom']].map(([v,k])=>'<option value="'+v+'"'+(ui.range===v?' selected':'')+'>'+t(k)+'</option>').join('')+'</select>'+(ui.range==='custom'?'<input type="date" id="rf" value="'+esc(ui.from)+'" style="max-width:170px"><input type="date" id="rt" value="'+esc(ui.to)+'" style="max-width:170px">':'')+'<button class="btn wa" data-act="wa" data-sid="'+id+'" data-kind="summary">'+WAI+' '+t('sendSummary')+'</button></div><p class="mut" style="margin:8px 0 0">'+t('sessionsInRange',{n:stats(id,f,to).n})+'</p></div>'+
+ '<div class="tabs">'+[['att','tAtt'],['exams','tExams'],['pay','tPay'],['log','tLog']].map(([k,x])=>'<button data-act="tab" data-id="'+k+'" class="'+(tab===k?'on':'')+'">'+t(x)+'</button>').join('')+'</div>'+b};
+function fileRow(f,sid,scope){const isV=f.kind==='video',ic=isV?'video':f.kind==='link'?'link':'materials',ok=/^https:\/\//.test(f.url||'');
+ return '<div class="file"><span class="fi'+(isV?' v':'')+'">'+ico(ic)+'</span><div class="sp"><b>'+esc(f.name)+'</b><div class="mut">'+t(f.kind==='video'?'video':f.kind==='link'?'link':'doc')+(f.size?' · '+(f.size/1048576).toFixed(1)+' MB':'')+'</div></div>'+(ok?'<a class="btn s" href="'+esc(f.url)+'" target="_blank" rel="noopener">'+t('openLink')+'</a>':'')+'<button class="btn s" data-act="renFile" data-id="'+esc(f.id)+'" data-scope="'+scope+'" data-sid="'+esc(sid)+'">'+t('rename')+'</button><button class="btn s d" data-act="delFile" data-id="'+esc(f.id)+'" data-scope="'+scope+'" data-sid="'+esc(sid)+'">'+t('del')+'</button></div>'}
+V.session=id=>{const s=SES(id);if(!s)return V.groups();const g=G(s.groupId)||{},ids=Object.keys(s.rec||{}),files=s.files||[];
+ const rows=ids.map(sid=>{const st=ST(sid);if(!st)return'';const r=s.rec[sid],pr=isPresent(r.a);return '<tr><td><b>'+esc(st.name)+'</b></td><td><span class="att" data-sid="'+sid+'"><button type="button" data-v="ح" class="y'+(pr?' on':'')+'">'+t('present')+'</button><button type="button" data-v="غ" class="n'+(!pr?' on':'')+'">'+t('absent')+'</button></span></td><td><input inputmode="decimal" data-rec="'+sid+'" data-k="s" value="'+esc(r.s??'')+'" style="width:80px" aria-label="'+t('grade')+'"></td><td><select data-rec="'+sid+'" data-k="h" style="min-width:130px" aria-label="'+t('hw')+'"><option value="">—</option>'+HWK.map(k=>'<option value="'+k+'"'+(r.h===k?' selected':'')+'>'+hwName(k)+'</option>').join('')+'</select></td><td><select data-rec="'+sid+'" data-k="r" style="width:80px" aria-label="'+t('rating')+'"><option value="">—</option>'+[5,4,3,2,1].map(n=>'<option'+(+r.r===n?' selected':'')+'>'+n+'</option>').join('')+'</select></td><td><input data-rec="'+sid+'" data-k="c" value="'+esc(r.c||'')+'" placeholder="'+t('noteCol')+'" style="min-width:150px"></td></tr>'}).join('');
+ const send=ids.map(sid=>{const st=ST(sid);if(!st)return'';const sent=S.log.some(l=>l.ref===s.id&&l.sid===sid);return '<div class="row" style="padding:10px 0;border-bottom:1px solid var(--line)"><b class="sp">'+esc(st.name)+'</b>'+(sent?'<span class="tag ok">'+t('sent')+'</span>':'')+'<button class="btn wa s'+(st.parent?'':' off')+'" data-act="wa" data-sid="'+sid+'" data-kind="session" data-x="'+s.id+'" data-to="parent">'+t('toParent')+'</button><button class="btn s'+(st.phone?'':' off')+'" data-act="wa" data-sid="'+sid+'" data-kind="session" data-x="'+s.id+'" data-to="student">'+t('toStudent')+'</button></div>'}).join('');
+ return '<a href="#group-'+s.groupId+'" class="mut">'+(lang==='ar'?'→ ':'← ')+esc(g.name||'')+'</a><div class="row" style="margin-top:6px"><h1>'+t('sessionOf',{g:esc(g.name||'')})+'</h1><span class="sp"></span><button class="btn d s" data-act="delSession" data-id="'+id+'">'+t('delSession')+'</button></div>'+
+ '<div class="card" style="margin-top:12px"><div class="f2"><div><label>'+t('date')+'</label><input type="date" data-ses="date" value="'+esc(s.date)+'"></div><div><label>'+t('lesson')+'</label><input data-ses="topic" value="'+esc(s.topic||'')+'" placeholder="'+t('lessonPh')+'"></div><div><label>'+t('maxGrade')+'</label><input inputmode="decimal" data-ses="max" value="'+esc(s.max)+'"></div><div><label>'+t('nextHw')+'</label><input data-ses="hw" value="'+esc(s.hw||'')+'"></div></div></div>'+
+ '<div class="card" style="margin-top:14px"><div class="row"><h2>'+t('attendance')+'</h2><span class="sp"></span><button class="btn s" data-act="allPresent" data-id="'+id+'">'+t('allPresent')+'</button></div><p class="mut" style="margin:4px 0 0">'+t('savedLive')+'</p><div class="scroll"><table class="stack"><thead><tr><th>'+t('studentPh')+'</th><th>'+t('attendance')+'</th><th>'+t('grade')+'</th><th>'+t('hw')+'</th><th>'+t('rating')+'</th><th>'+t('noteCol')+'</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+
+ '<div class="card" style="margin-top:14px"><div class="row"><h2>'+t('files')+' ('+files.length+')</h2><span class="sp"></span>'+(files.length?'<button class="btn wa s" data-act="bulk" data-kind="files" data-id="'+id+'">'+t('sendFiles')+'</button>':'')+'</div><p class="mut" style="margin:4px 0 10px">'+t('filesHint')+'</p>'+(files.length?files.map(f=>fileRow(f,id,'session')).join(''):'')+
+ '<div class="drop" id="drop" data-scope="session" data-sid="'+id+'" style="margin-top:10px"><div class="row" style="justify-content:center"><label class="btn p" style="margin:0;color:#fff">'+ico('upload')+t('chooseFiles')+'<input type="file" multiple hidden data-upload="session" data-sid="'+id+'" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,image/*,video/*,audio/*"></label><button class="btn" data-act="linkForm" data-scope="session" data-sid="'+id+'">'+ico('video')+t('addVideoLink')+'</button></div><div class="mut" style="margin-top:6px">'+t('dropHere')+'</div><div id="upst" class="mut"></div></div></div>'+
+ '<div class="card" style="margin-top:14px"><div class="row"><h2>'+t('sendReports')+'</h2><span class="sp"></span><span class="mut">'+t('sentN',{a:new Set(S.log.filter(l=>l.ref===s.id).map(l=>l.sid)).size,b:ids.length})+'</span></div><p class="mut">'+t('sendHint')+'</p>'+send+'</div>'};
+V.payments=()=>{const m=ui.month,L=act().filter(s=>feeOf(s.id)>0),un=L.filter(s=>owes(s.id,m)>0),tot=L.reduce((a,s)=>a+paid(s.id,m),0);
+ return '<div class="row"><h1>'+t('fees')+'</h1><span class="sp"></span><input type="month" id="pm" value="'+esc(m)+'" style="max-width:190px"></div><div class="grid" style="margin:14px 0"><div class="card"><div class="mut">'+t('collected',{m:monthName(m)})+'</div><div class="kpi">'+money(tot)+'</div></div><div class="card"><div class="mut">'+t('remaining')+'</div><div class="kpi" style="color:var(--pen)">'+money(un.reduce((a,s)=>a+owes(s.id,m),0))+' <small>'+un.length+' '+t('studentsN')+'</small></div></div></div>'+(un.length?'<button class="btn wa" data-act="feeall" style="margin-bottom:12px">'+WAI+' '+t('remindAll',{n:un.length})+'</button>':'')+
+ '<div class="card"><table class="stack"><thead><tr><th>'+t('studentPh')+'</th><th>'+t('pickGroup')+'</th><th class="num">'+t('required')+'</th><th class="num">'+t('paidCol')+'</th><th>'+t('status')+'</th><th></th></tr></thead><tbody>'+L.map(s=>{const o=owes(s.id,m);return '<tr><td><a href="#student-'+s.id+'">'+esc(s.name)+'</a></td><td>'+esc((G(s.groupId)||{}).name||'')+'</td><td class="num">'+money(feeOf(s.id))+'</td><td class="num">'+money(paid(s.id,m))+'</td><td>'+(o?'<span class="tag bad">'+t('left',{x:money(o)})+'</span>':'<span class="tag ok">'+t('settled')+'</span>')+'</td><td><span class="row" style="gap:6px">'+(o?'<button class="btn p s" data-act="quickPay" data-sid="'+s.id+'">'+t('payX',{x:money(o)})+'</button>'+waBtn(s.id,'fee',m):'')+'<button class="btn s" data-act="payForm" data-sid="'+s.id+'">'+t('otherAmount')+'</button></span></td></tr>'}).join('')+'</tbody></table>'+(L.length?'':'<p class="mut">'+t('setFees')+'</p>')+'</div>'};
+V.exams=()=>'<div class="row"><h1>'+t('exams')+'</h1><span class="sp"></span><button class="btn p" data-act="examForm">'+t('newExam')+'</button></div><div class="card" style="margin-top:14px">'+(S.exams.length?'<table class="stack"><thead><tr><th>'+t('examCol')+'</th><th>'+t('pickGroup')+'</th><th>'+t('date')+'</th><th class="num">'+t('outOf')+'</th><th>'+t('results')+'</th><th></th></tr></thead><tbody>'+S.exams.slice().sort((a,b)=>a.date<b.date?1:-1).map(e=>{const n=Object.values(e.res||{}).filter(v=>v!==''&&v!=null).length;return '<tr><td><b>'+esc(e.title)+'</b></td><td>'+esc((G(e.groupId)||{}).name||'')+'</td><td>'+fmtD(e.date)+'</td><td class="num">'+esc(e.max)+'</td><td>'+n+' / '+inG(e.groupId).length+'</td><td><a class="btn s" href="#exam-'+e.id+'">'+t('open')+'</a></td></tr>'}).join('')+'</tbody></table>':'<div class="empty">'+t('noExams')+'</div>')+'</div>';
+V.exam=id=>{const e=S.exams.find(x=>x.id===id);if(!e)return V.exams();const L=inG(e.groupId),vals=L.map(s=>e.res&&e.res[s.id]).filter(v=>v!==''&&v!=null).map(Number),av=vals.length?(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1):'—';
+ return '<a href="#exams" class="mut">'+(lang==='ar'?'→ ':'← ')+t('exams')+'</a><div class="row" style="margin-top:6px"><h1>'+esc(e.title)+'</h1><span class="sp"></span><button class="btn s" data-act="examForm" data-id="'+id+'">'+t('edit')+'</button><button class="btn s d" data-act="delExam" data-id="'+id+'">'+t('del')+'</button></div><p class="mut">'+esc((G(e.groupId)||{}).name||'')+' · '+fmtD(e.date)+' · '+t('outOf')+' '+esc(e.max)+' · '+t('avg')+' '+av+'</p><div class="card"><table class="stack"><thead><tr><th>'+t('studentPh')+'</th><th>'+t('grade')+'</th><th>'+t('sendResult')+'</th></tr></thead><tbody>'+L.map(s=>'<tr><td>'+esc(s.name)+'</td><td><input inputmode="decimal" data-exam="'+id+'" data-sid="'+s.id+'" value="'+esc((e.res||{})[s.id]??'')+'" style="width:100px"></td><td>'+waBtn(s.id,'exam',id)+'</td></tr>').join('')+'</tbody></table></div>'};
+V.materials=()=>'<div class="row"><h1>'+t('materials')+'</h1><span class="sp"></span><button class="btn p" data-act="matForm">'+t('matAdd')+'</button></div><p class="mut">'+t('matHint')+'</p><div class="cards">'+(S.materials.length?S.materials.slice().reverse().map(m=>'<div class="card"><span class="tag">'+t(m.kind==='video'?'video':m.kind==='link'?'link':'doc')+'</span><h3 style="margin-top:8px">'+esc(m.title)+'</h3><div class="mut">'+esc((G(m.groupId)||{}).name||t('allGroupsShort'))+'</div>'+(m.desc?'<p style="margin:6px 0">'+esc(m.desc)+'</p>':'')+(/^https:\/\//.test(m.url||'')?'<a href="'+esc(m.url)+'" target="_blank" rel="noopener">'+t('openLink')+'</a>':'')+'<div class="row" style="margin-top:10px"><button class="btn wa s" data-act="bulk" data-kind="material" data-id="'+m.id+'">'+t('sendToGroup')+'</button><button class="btn s d" data-act="delMat" data-id="'+m.id+'">'+t('del')+'</button></div></div>').join(''):'<div class="card empty">'+t('noMat')+'</div>')+'</div>';
+V.more=()=>'<h1>'+t('more')+'</h1><div class="cards" style="margin-top:14px">'+['exams','materials','alerts','prefs'].map(h=>'<a class="card row" href="#'+h+'" style="text-decoration:none;color:inherit"><span style="width:26px;color:var(--br2)">'+ico(NI[h])+'</span><b>'+t(h)+'</b>'+(h==='alerts'&&unread(alerts()).length?'<span class="tag bad">'+unread(alerts()).length+'</span>':'')+'</a>').join('')+(standalone()?'':'<button class="card row" data-act="install" style="font:inherit;color:inherit;text-align:start;cursor:pointer"><span style="width:26px;color:var(--br2)">'+ico('phone')+'</span><b>'+t('install')+'</b></button>')+'</div>';
+V.prefs=()=>{const P=S.meta.prefs,ml=P.msgLang||'ar',th=LS('rafiq-theme')||'';return '<h1>'+t('prefs')+'</h1>'+
+ '<div class="card" style="margin-top:14px"><h2>'+t('appearance')+'</h2><label>'+t('language')+'</label><div class="seg2" style="max-width:320px"><button data-act="setLang" data-id="ar" class="'+(lang==='ar'?'on':'')+'">العربية</button><button data-act="setLang" data-id="en" class="'+(lang==='en'?'on':'')+'">English</button></div><label>'+t('theme')+'</label><div class="seg2" style="max-width:420px"><button data-act="setTheme" data-id="light" class="'+(th==='light'?'on':'')+'">'+t('light')+'</button><button data-act="setTheme" data-id="dark" class="'+(th==='dark'?'on':'')+'">'+t('dark')+'</button><button data-act="setTheme" data-id="" class="'+(!th?'on':'')+'">'+t('system')+'</button></div>'+(standalone()?'<p><span class="tag ok">'+t('installed')+'</span></p>':'<button class="btn" data-act="install" style="margin-top:8px">'+ico('phone')+t('install')+'</button>')+'</div>'+
+ '<div class="card" style="margin-top:14px"><h2>'+t('yourData')+'</h2><div class="f2"><div><label>'+t('teacherName')+'</label><input data-meta="teacher" value="'+esc(S.meta.teacher)+'"></div><div><label>'+t('center')+'</label><input data-meta="center" value="'+esc(S.meta.center)+'"></div></div></div>'+
+ pushCard()+
+ '<div class="card" style="margin-top:14px"><h2>'+t('notifSettings')+'</h2>'+Object.keys(AK).map(k=>'<label class="sw"><span style="color:var(--ink)">'+t(AK[k])+'</span><input type="checkbox" data-on="'+k+'"'+(P.on[k]?' checked':'')+'></label>').join('')+'<div class="f2"><div><label>'+t('remindBefore')+'</label><input type="number" min="5" data-pref="remind" value="'+P.remind+'"></div><div><label>'+t('feeDay')+'</label><input type="number" min="1" max="28" data-pref="feeDay" value="'+P.feeDay+'"></div></div></div>'+
+ '<div class="card" style="margin-top:14px"><h2>'+t('templates')+'</h2><label>'+t('msgLang')+'</label><div class="seg2" style="max-width:320px"><button data-act="msgLang" data-id="ar" class="'+(ml==='ar'?'on':'')+'">العربية</button><button data-act="msgLang" data-id="en" class="'+(ml==='en'?'on':'')+'">English</button></div><p class="mut">'+t('tplHint')+' '+esc(Object.entries(VK).slice(0,8).map(([a,e])=>'{'+(ml==='en'?e:a)+'}').join(' '))+'</p>'+Object.keys(DEFTPL.ar).map(k=>'<label>'+t('tpl'+k)+'</label><textarea data-tpl="'+k+'" dir="'+(ml==='en'?'ltr':'rtl')+'">'+esc(S.meta.tpl[ml][k])+'</textarea><button class="btn s" data-act="resetTpl" data-id="'+k+'" style="margin-top:6px">'+t('resetTpl')+'</button>').join('')+'</div>'+
+ '<div class="card" style="margin-top:14px"><h2>'+t('backup')+'</h2><p class="mut">'+t('backupHint')+'</p><div class="row"><button class="btn" data-act="export">'+t('copyAll')+'</button><button class="btn" data-act="import">'+t('import')+'</button>'+(S.meta.demo?'<button class="btn d" data-act="clearDemo">'+t('clearDemo')+'</button>':'')+'<button class="btn d" data-act="wipe">'+t('wipe')+'</button></div></div>'+
+ '<div class="card" style="margin-top:14px"><h2>'+t('account')+'</h2><p class="mut"><bdi>'+esc(user&&user.email)+'</bdi></p><button class="btn d" data-act="logout">'+t('logout')+'</button></div>'};
+/* ================= auth view ================= */
+let authMode='in';
+function renderAuth(msg){$('#root').innerHTML='<div class="auth"><div class="card"><div class="logo"><img src="icon-192.png" alt=""><div><h1 style="font-size:24px">'+t('app')+'</h1><div class="mut">'+t('tagline')+'</div></div></div><div class="row"><span class="sp"></span><button class="ib" data-act="lang" style="width:auto;padding:0 12px">'+(lang==='ar'?'English':'العربية')+'</button></div><div class="seg2"><button data-act="authMode" data-id="in" class="'+(authMode==='in'?'on':'')+'">'+t('signin')+'</button><button data-act="authMode" data-id="up" class="'+(authMode==='up'?'on':'')+'">'+t('signup')+'</button></div><form id="fAuth"><label>'+t('email')+'</label><input type="email" name="email" required autocomplete="email" dir="ltr"><label>'+t('password')+'</label><input type="password" name="password" required minlength="6" autocomplete="'+(authMode==='in'?'current-password':'new-password')+'" dir="ltr"><button class="btn p" style="width:100%;margin-top:16px">'+(authMode==='in'?t('signinBtn'):t('signupBtn'))+'</button></form>'+(msg?'<p class="note" style="margin-top:12px">'+esc(msg)+'</p>':'')+'<p class="mut" style="margin-top:12px">'+t('authHint')+'</p></div></div>'}
+/* ================= render ================= */
+function route(){return(location.hash||'#home').slice(1)||'home'}
+function render(){if(!user){renderAuth();return}if(!$('#rail'))shell();renderChrome();const v=$('#view');
+ if(!loaded){v.innerHTML='<div class="empty">'+t('syncLoading')+'</div>';$('#ttl').textContent=t('app');return}
+ if(!S.meta.started){v.innerHTML=V.welcome();$('#ttl').textContent=t('app');return}
+ const[b,...rest]=route().split('-'),id=rest.join('-'),fn=V[b]&&b!=='welcome'?V[b]:V.home,A=alerts();
+ v.innerHTML=(fn===V.alerts||fn===V.home)?fn(A):fn(id);
+ $('#ttl').textContent=NAV.includes(b)||b==='more'?t(b):({group:t('group'),student:t('student'),session:t('session'),exam:t('exam')})[b]||t('home');bindDrop()}
+addEventListener('hashchange',()=>{ui.tab='att';render();scrollTo(0,0)});
+function applyLang(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';LS('rafiq-lang',lang);document.title=t('app');if($('#rail'))shell();render()}
+function applyTheme(v){if(v)document.documentElement.dataset.theme=v;else delete document.documentElement.dataset.theme;LS('rafiq-theme',v||null);renderChrome()}
+/* ================= modal ================= */
+function open(html){$('#sheet').innerHTML=html;$('#modal').classList.add('on');const f=$('#sheet').querySelector('input:not([type=radio]):not([type=hidden]),textarea,select');if(f&&matchMedia('(hover:hover)').matches)f.focus()}
+function close(){$('#modal').classList.remove('on')}
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')close()});
+addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+function ask(msg,fn){open('<h2>'+esc(msg)+'</h2><div class="row" style="margin-top:18px"><button class="btn d" id="yes">'+t('yes')+'</button><button class="btn" data-act="close">'+t('no')+'</button></div>');$('#yes').onclick=()=>{close();fn()}}
+/* ================= WhatsApp ================= */
+const ML=()=>S.meta.prefs.msgLang||'ar',TPL=k=>S.meta.tpl[ML()][k]||DEFTPL[ML()][k];
+function filesBlock(files,L){const T=TX[L];if(!files||!files.length)return'';return (L==='en'?'📎 Session files:':'📎 ملفات الحصة:')+'\n'+files.map(f=>'• '+f.name+': '+f.url).join('\n')}
+function buildText(sid,kind,x){const L=ML(),T=TX[L],s=ST(sid),g=G(s.groupId)||{},base={...TV(L),student:s.name,group:g.name||''};
+ if(kind==='session'){const se=SES(x)||{},r=(se.rec||{})[sid]||{},ab=!isPresent(r.a);
+  return fill(TPL('session'),{...base,date:fmtD(se.date,L),lesson:se.topic||'—',attendance:attName(r.a,L)||'—',grade:ab?'—':(r.s!==''&&r.s!=null?r.s+(L==='en'?' / ':' من ')+se.max:T.notGraded),homework:ab?'—':(hwName(r.h,L)||'—'),rating:r.r?'★'.repeat(+r.r)+' ('+r.r+'/5)':'—',note:r.c||'—',next_homework:se.hw||'—',files:filesBlock(se.files,L)})}
+ if(kind==='summary'){const[f,to,lbl]=rangeOf(L),st=stats(sid,f,to),m=curMonth(),o=owes(sid,m);
+  const ex=S.exams.filter(e=>e.groupId===s.groupId&&(!f||e.date>=f)&&(!to||e.date<=to)&&e.res&&e.res[sid]!=null&&e.res[sid]!=='').map(e=>e.title+': '+e.res[sid]+'/'+e.max);
+  return fill(TPL('summary'),{...base,period:lbl,sessions_count:st.n,present_count:st.pres,attendance_pct:pct(st.att),absences:st.abs.length?st.abs.length+' ('+st.abs.map(x=>fmtD(x.s.date,L)).join(L==='en'?', ':'، ')+')':T.none,avg_grade:pct(st.avg),exams:ex.length?ex.join(' · '):T.none,homework_pct:pct(st.hw),fees:feeOf(sid)?(o?T.leftFor.replace('{x}',money(o,L)).replace('{m}',monthName(m,L)):T.paidFor.replace('{m}',monthName(m,L))):'—',level:T[st.lk]})}
+ if(kind==='fee'){const m=x||curMonth();return fill(TPL('fee'),{...base,month:monthName(m,L),amount:money(owes(sid,m),L)})}
+ if(kind==='absent'){const R=recs(sid);let k=0;for(let i=R.length-1;i>=0&&!isPresent(R[i].r.a);i--)k++;return fill(TPL('absent'),{...base,absent_count:k,date:R.length?fmtD(R[R.length-1].s.date,L):''})}
+ if(kind==='exam'){const e=S.exams.find(v=>v.id===x)||{},v=(e.res||{})[sid];return fill(TPL('exam'),{...base,title:e.title||'',grade:v??'—',max:e.max,pct:v!=null&&v!==''&&+e.max?Math.round(v/e.max*100)+'%':'—'})}
+ return''}
+function logSent(sid,kind,to,ref){S.log.push({sid,kind,to,ref:ref||'',at:Date.now()});mark('log')}
+function openWA(sid,kind,x,to,ref){const s=ST(sid);if(!s)return;let who=to||(s.parent?'parent':'student');const text=buildText(sid,kind,x),dir=ML()==='en'?'ltr':'rtl';
+ const radio=(v,lbl,p)=>'<label class="in"><input type="radio" name="to" value="'+v+'"'+(who===v?' checked':'')+(p?'':' disabled')+'> '+lbl+' <bdi dir="ltr" class="mut">'+esc(p||t('noNumber'))+'</bdi></label>';
+ open('<h2>'+esc(t('tpl'+kind))+' — '+esc(s.name)+'</h2><div class="row" style="margin:12px 0">'+radio('parent',t('parent'),s.parent)+radio('student',t('studentPh'),s.phone)+'</div><label>'+t('msgEditable')+'</label><textarea id="waT" dir="'+dir+'" style="min-height:260px">'+esc(text)+'</textarea><div class="row" style="margin-top:14px"><a class="btn wa" id="waGo" target="_blank" rel="noopener">'+WAI+' '+t('openWA')+'</a><button class="btn" id="waCopy">'+t('copyText')+'</button><span class="sp"></span><button class="btn" data-act="close">'+t('cancel')+'</button></div>');
+ const go=$('#waGo'),upd=()=>{const w=$('#sheet').querySelector('input[name=to]:checked');who=w?w.value:who;const p=who==='parent'?s.parent:s.phone;go.classList.toggle('off',!p);go.href=p?waUrl(p,$('#waT').value):'#'};
+ upd();$('#waT').addEventListener('input',upd);$('#sheet').querySelectorAll('input[name=to]').forEach(r=>r.addEventListener('change',upd));
+ go.addEventListener('click',()=>{logSent(sid,kind,who,ref||x);setTimeout(()=>{close();render()},300)});
+ $('#waCopy').addEventListener('click',()=>copyTxt($('#waT')))}
+async function copyTxt(el){try{await navigator.clipboard.writeText(el.value);toast(t('copied'))}catch(e){el.select();toast(t('selectCopy'))}}
+function openBulk(kind,id){const L=ML(),T=TX[L];let list,tpl=null,title;
+ if(kind==='material'){const m=S.materials.find(v=>v.id===id);list=m.groupId?inG(m.groupId):act();title=m.title;tpl=fill(TPL('material'),{...TV(L),title:m.title,description:m.desc||'',link:m.url||'',group:(G(m.groupId)||{}).name||T.allGroupsShort})}
+ else if(kind==='files'){const s=SES(id);list=Object.keys(s.rec||{}).map(ST).filter(Boolean);title=t('sendFiles');tpl=fill(TPL('files'),{...TV(L),date:fmtD(s.date,L),lesson:s.topic||'—',files:(s.files||[]).map(f=>'• '+f.name+': '+f.url).join('\n')})}
+ else if(kind==='fee'){const m=curMonth();list=act().filter(s=>owes(s.id,m)>0);title=t('feeTitle',{m:monthName(m)})}
+ else{const g=G(id);list=inG(id);title=t('announceFor',{g:g.name});tpl=(L==='en'?'Hello 🌿\nAn announcement for '+g.name+':\n\n\n':'السلام عليكم 🌿\nإعلان لطلاب مجموعة '+g.name+':\n\n\n')+(S.meta.teacher||'')}
+ const ref=kind+'-'+id+'-'+Date.now(),kk=kind==='fee'?'fee':kind==='material'?'material':kind==='files'?'files':'announce';let to='parent';const dir=L==='en'?'ltr':'rtl';
+ const rowsH=()=>list.map(s=>{const p=to==='parent'?s.parent:s.phone,x=tpl==null?buildText(s.id,'fee'):fill($('#bT')?$('#bT').value:tpl,{student:s.name}),done=S.log.some(l=>l.ref===ref&&l.sid===s.id);return '<div class="row" style="padding:8px 0;border-bottom:1px solid var(--line)"><span class="sp">'+esc(s.name)+'</span>'+(done?'<span class="tag ok">'+t('sent')+'</span>':'')+'<a class="btn wa s'+(p?'':' off')+'" target="_blank" rel="noopener" data-bsid="'+s.id+'" href="'+(p?esc(waUrl(p,x)):'#')+'">'+(p?t('send'):t('noNumber'))+'</a></div>'}).join('');
+ open('<h2>'+esc(title)+'</h2>'+(tpl!=null?'<label>'+esc(t('msgNameHint'))+'</label><textarea id="bT" dir="'+dir+'">'+esc(tpl)+'</textarea>':'<p class="mut">'+t('feeEach')+'</p>')+'<div class="row" style="margin:12px 0"><label class="in"><input type="radio" name="bto" value="parent" checked> '+t('toParents')+'</label><label class="in"><input type="radio" name="bto" value="student"> '+t('toStudents')+'</label></div><p class="mut">'+t('bulkHint')+'</p><div id="bL">'+rowsH()+'</div><div class="row" style="margin-top:14px"><span class="sp"></span><button class="btn" data-act="close">'+t('done')+'</button></div>');
+ let dt;if($('#bT'))$('#bT').addEventListener('input',()=>{clearTimeout(dt);dt=setTimeout(()=>{$('#bL').innerHTML=rowsH()},250)});
+ $('#sheet').querySelectorAll('input[name=bto]').forEach(r=>r.addEventListener('change',()=>{to=r.value;$('#bL').innerHTML=rowsH()}));
+ $('#bL').addEventListener('click',e=>{const a=e.target.closest('a[data-bsid]');if(!a||a.classList.contains('off'))return;logSent(a.dataset.bsid,kk,to,ref);setTimeout(()=>{$('#bL').innerHTML=rowsH()},200)})}
+/* ================= files ================= */
+const MAXB=50*1024*1024;
+function fileHost(scope,sid){return scope==='session'?SES(sid):S.materials.find(m=>m.id===sid)}
+function kindOf(f){return (f.type||'').startsWith('video/')?'video':'doc'}
+async function uploadFiles(scope,sid,fileList){const host=fileHost(scope,sid);if(!host)return;const arr=[...fileList];
+ for(const f of arr){if(f.size>MAXB){toast(t('tooBig',{n:f.name}));continue}
+  const st=$('#upst');if(st)st.textContent=t('uploading',{n:f.name});
+  const ext=((f.name.match(/\.([a-z0-9]{1,6})$/i)||[])[1]||'bin').toLowerCase(),path=user.id+'/'+(scope==='session'?sid:'materials')+'/'+uid()+'.'+ext;
+  const{error}=await sb.storage.from('files').upload(path,f,{contentType:f.type||'application/octet-stream',upsert:false});
+  if(error){toast(t('upErr',{e:error.message}));continue}
+  const url=sb.storage.from('files').getPublicUrl(path).data.publicUrl,name=f.name.replace(/\.[^.]+$/,'');
+  if(scope==='session'){host.files=host.files||[];host.files.push({id:uid(),name,kind:kindOf(f),url,path,size:f.size});markSes(host.date)}
+  else{host.url=url;host.path=path;host.kind=kindOf(f);host.size=f.size;mark('materials')}
+  toast(t('uploaded'))}
+ render()}
+function bindDrop(){const d=$('#drop');if(!d)return;['dragenter','dragover'].forEach(ev=>d.addEventListener(ev,e=>{e.preventDefault();d.classList.add('on')}));['dragleave','drop'].forEach(ev=>d.addEventListener(ev,e=>{e.preventDefault();d.classList.remove('on')}));d.addEventListener('drop',e=>{if(e.dataTransfer.files.length)uploadFiles(d.dataset.scope,d.dataset.sid,e.dataTransfer.files)})}
+function linkForm(scope,sid){open('<h2>'+t('addVideoLink').replace('+ ','')+'</h2><form id="fLink"><label>'+t('fileName')+'</label><input name="name" required><label>'+t('videoLink')+'</label><input name="url" type="url" dir="ltr" required placeholder="https://youtu.be/..."><input type="hidden" name="scope" value="'+esc(scope)+'"><input type="hidden" name="sid" value="'+esc(sid)+'"><div class="row" style="margin-top:18px"><button class="btn p">'+t('save')+'</button><span class="sp"></span><button type="button" class="btn" data-act="close">'+t('cancel')+'</button></div></form>')}
+async function removeStored(path){if(path)try{await sb.storage.from('files').remove([path])}catch(e){}}
+/* ================= forms ================= */
+function groupForm(id){const g=id?G(id):{name:'',subject:'',grade:'',days:[],time:'16:00',fee:'',color:COLORS[S.groups.length%COLORS.length]};
+ open('<h2>'+(id?t('groupEdit'):t('groupNew'))+'</h2><form id="fGroup"><label>'+t('groupName')+'</label><input name="name" required value="'+esc(g.name)+'"><div class="f2"><div><label>'+t('subject')+'</label><input name="subject" value="'+esc(g.subject)+'"></div><div><label>'+t('gradeLvl')+'</label><input name="grade" value="'+esc(g.grade)+'"></div><div><label>'+t('time')+'</label><input type="time" name="time" value="'+esc(g.time)+'"></div><div><label>'+t('monthlyFee')+'</label><input type="number" min="0" name="fee" value="'+esc(g.fee)+'"></div></div><label>'+t('days')+'</label><div class="row">'+[6,0,1,2,3,4,5].map(i=>'<label class="in"><input type="checkbox" name="d'+i+'"'+((g.days||[]).includes(i)?' checked':'')+'> '+dN(i)+'</label>').join('')+'</div><label>'+t('color')+'</label><div class="row">'+COLORS.map(c=>'<label class="in"><input type="radio" name="color" value="'+c+'" style="accent-color:'+c+'"'+(g.color===c?' checked':'')+'><span class="dot" style="background:'+c+'"></span></label>').join('')+'</div><div class="row" style="margin-top:18px"><button class="btn p">'+t('save')+'</button>'+(id?'<button type="button" class="btn d" data-act="delGroup" data-id="'+id+'">'+t('delGroup')+'</button>':'')+'<span class="sp"></span><button type="button" class="btn" data-act="close">'+t('cancel')+'</button></div><input type="hidden" name="id" value="'+esc(id||'')+'"></form>')}
+function studentForm(id,gid){const s=id?ST(id):{name:'',phone:'',parent:'',groupId:gid||(S.groups[0]||{}).id||'',notes:'',active:true};
+ open('<h2>'+(id?t('studentEdit'):t('studentNew'))+'</h2><form id="fStudent"><label>'+t('name')+'</label><input name="name" required value="'+esc(s.name)+'"><div class="f2"><div><label>'+t('parentPhone')+'</label><input name="parent" type="tel" inputmode="tel" dir="ltr" value="'+esc(s.parent)+'" placeholder="010xxxxxxxx"></div><div><label>'+t('studentPhone')+'</label><input name="phone" type="tel" inputmode="tel" dir="ltr" value="'+esc(s.phone)+'" placeholder="011xxxxxxxx"></div></div><label>'+t('pickGroup')+'</label><select name="groupId">'+S.groups.map(g=>'<option value="'+g.id+'"'+(s.groupId===g.id?' selected':'')+'>'+esc(g.name)+'</option>').join('')+'</select><label>'+t('notes')+'</label><input name="notes" value="'+esc(s.notes)+'"><label class="sw"><span style="color:var(--ink)">'+t('stillActive')+'</span><input type="checkbox" name="active"'+(s.active!==false?' checked':'')+'></label><div class="row" style="margin-top:18px"><button class="btn p">'+t('save')+'</button>'+(id?'<button type="button" class="btn d" data-act="delStudent" data-id="'+id+'">'+t('del')+'</button>':'')+'<span class="sp"></span><button type="button" class="btn" data-act="close">'+t('cancel')+'</button></div><input type="hidden" name="id" value="'+esc(id||'')+'"></form>')}
+function payForm(sid){const o=owes(sid,ui.month)||feeOf(sid);open('<h2>'+t('payFor',{s:esc(ST(sid).name)})+'</h2><form id="fPay"><div class="f2"><div><label>'+t('forMonth')+'</label><input type="month" name="month" value="'+esc(ui.month)+'"></div><div><label>'+t('amount')+'</label><input type="number" min="1" name="amount" required value="'+o+'"></div><div><label>'+t('payDate')+'</label><input type="date" name="date" value="'+today()+'"></div><div><label>'+t('method')+'</label><select name="method">'+['cash','vcash','instapay','bank'].map(k=>'<option value="'+k+'">'+t(k)+'</option>').join('')+'</select></div></div><input type="hidden" name="sid" value="'+sid+'"><div class="row" style="margin-top:18px"><button class="btn p">'+t('save')+'</button><span class="sp"></span><button type="button" class="btn" data-act="close">'+t('cancel')+'</button></div></form>')}
+function examForm(id){const e=id?S.exams.find(x=>x.id===id):{title:'',groupId:(S.groups[0]||{}).id||'',date:addDays(today(),7),max:20};open('<h2>'+(id?t('examEdit'):t('examNew'))+'</h2><form id="fExam"><label>'+t('title')+'</label><input name="title" required value="'+esc(e.title)+'" placeholder="'+t('examPh')+'"><div class="f2"><div><label>'+t('pickGroup')+'</label><select name="groupId">'+S.groups.map(g=>'<option value="'+g.id+'"'+(e.groupId===g.id?' selected':'')+'>'+esc(g.name)+'</option>').join('')+'</select></div><div><label>'+t('date')+'</label><input type="date" name="date" value="'+esc(e.date)+'"></div><div><label>'+t('outOf')+'</label><input type="number" min="1" name="max" value="'+esc(e.max)+'"></div></div><input type="hidden" name="id" value="'+esc(id||'')+'"><div class="row" style="margin-top:18px"><button class="btn p">'+t('save')+'</button><span class="sp"></span><button type="button" class="btn" data-act="close">'+t('cancel')+'</button></div></form>')}
+function matForm(){open('<h2>'+t('matTitle')+'</h2><form id="fMat"><label>'+t('title')+'</label><input name="title" required><label>'+t('pickGroup')+'</label><select name="groupId"><option value="">'+t('allGroupsShort')+'</option>'+S.groups.map(g=>'<option value="'+g.id+'">'+esc(g.name)+'</option>').join('')+'</select><label>'+t('uploadOr')+'</label><input type="file" name="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,image/*,video/*,audio/*"><input name="url" type="url" dir="ltr" placeholder="https://..." style="margin-top:8px"><label>'+t('desc')+'</label><input name="desc"><div id="upst" class="mut"></div><div class="row" style="margin-top:18px"><button class="btn p">'+t('save')+'</button><span class="sp"></span><button type="button" class="btn" data-act="close">'+t('cancel')+'</button></div></form>')}
+function pickStart(){if(!S.groups.length){toast(t('addGroupFirst'));return}open('<h2>'+t('recordSession')+'</h2><label>'+t('pickGroup')+'</label><select id="pg">'+S.groups.map(g=>'<option value="'+g.id+'">'+esc(g.name)+'</option>').join('')+'</select><label>'+t('date')+'</label><input type="date" id="pd" value="'+today()+'"><div class="row" style="margin-top:18px"><button class="btn p" id="pgo">'+t('start')+'</button><span class="sp"></span><button class="btn" data-act="close">'+t('cancel')+'</button></div>');$('#pgo').onclick=()=>{close();startSession($('#pg').value,$('#pd').value)}}
+function startSession(gid,date){date=date||today();const ex=S.sessions.find(s=>s.groupId===gid&&s.date===date);if(ex){location.hash='session-'+ex.id;return}
+ const s={id:uid(),groupId:gid,date,topic:'',hw:'',max:10,rec:{},files:[]};inG(gid).forEach(st=>s.rec[st.id]={a:'ح',s:'',h:'',r:'',c:''});S.sessions.push(s);markSes(date);location.hash='session-'+s.id}
+/* ================= push ================= */
+function b64u(s){const p='='.repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(b,c=>c.charCodeAt(0))}
+let swReg=null;
+async function pushStatus(){if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window)){PUSH.state='unsupported';return}
+ if(Notification.permission==='denied'){PUSH.state='denied';return}
+ try{swReg=swReg||await navigator.serviceWorker.ready;const sub=await swReg.pushManager.getSubscription();PUSH.state=sub&&Notification.permission==='granted'?'on':'off';
+  if(sub&&user){await sb.from('push_subs').upsert({endpoint:sub.endpoint,teacher_id:user.id,sub:sub.toJSON(),lang},{onConflict:'endpoint'})}}catch(e){PUSH.state='off'}}
+async function pushOn(){try{const p=await Notification.requestPermission();if(p!=='granted'){PUSH.state=p==='denied'?'denied':'off';render();return}
+ swReg=swReg||await navigator.serviceWorker.ready;const r=await fetch(FN+'?vapid');const{publicKey}=await r.json();
+ let sub=await swReg.pushManager.getSubscription();if(!sub)sub=await swReg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(publicKey)});
+ const{error}=await sb.from('push_subs').upsert({endpoint:sub.endpoint,teacher_id:user.id,sub:sub.toJSON(),lang},{onConflict:'endpoint'});if(error)throw error;
+ if(S.meta.prefs.push===false){S.meta.prefs.push=true;mark('meta')}PUSH.state='on';render();pushTest()}
+ catch(e){toast(t('pushFail',{e:e.message||e}));await pushStatus();render()}}
+async function pushOff(){try{swReg=swReg||await navigator.serviceWorker.ready;const sub=await swReg.pushManager.getSubscription();if(sub){await sb.from('push_subs').delete().eq('endpoint',sub.endpoint);await sub.unsubscribe()}}catch(e){}PUSH.state='off';render()}
+async function pushTest(){try{const{data}=await sb.auth.getSession();const r=await fetch(FN+'?test',{method:'POST',headers:{Authorization:'Bearer '+data.session.access_token}});const j=await r.json();toast(j.sent?t('pushTestSent'):t('pushFail',{e:j.error||'0'}))}catch(e){toast(t('pushFail',{e:e.message}))}}
+/* ================= install ================= */
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;renderChrome()});
+addEventListener('appinstalled',()=>{deferredInstall=null;toast(t('installed'));renderChrome()});
+async function doInstall(){if(deferredInstall){deferredInstall.prompt();try{await deferredInstall.userChoice}catch(e){}deferredInstall=null;return}
+ open('<h2>'+t('install')+'</h2><p>'+(isIOS?t('iosInstall'):t('androidInstall'))+'</p><div class="row" style="margin-top:14px"><span class="sp"></span><button class="btn" data-act="close">'+t('ok')+'</button></div>')}
+/* ================= events ================= */
+document.addEventListener('submit',async e=>{e.preventDefault();const f=e.target,d=Object.fromEntries(new FormData(f));
+ if(f.id==='fAuth'){const btn=f.querySelector('button');btn.disabled=true;
+  if(authMode==='up'){const{data,error}=await sb.auth.signUp({email:d.email,password:d.password,options:{emailRedirectTo:location.origin+location.pathname}});btn.disabled=false;if(error){renderAuth(error.message);return}if(!data.session){authMode='in';renderAuth(t('checkEmail'))}}
+  else{const{error}=await sb.auth.signInWithPassword({email:d.email,password:d.password});btn.disabled=false;if(error)renderAuth(t('authErr')+' — '+error.message)}
+  return}
+ if(f.id==='fWelcome'){S.meta.teacher=d.teacher;S.meta.center=d.center;S.meta.started=true;S.meta.prefs.msgLang=lang;if(e.submitter&&e.submitter.value==='1')seed();mark(...allKeys());render();return}
+ if(f.id==='fGroup'){const days=[0,1,2,3,4,5,6].filter(i=>d['d'+i]),o={name:d.name.trim(),subject:d.subject,grade:d.grade,time:d.time,fee:+d.fee||0,days,color:d.color||COLORS[0]};
+  if(d.id)Object.assign(G(d.id),o);else S.groups.push({id:uid(),...o});mark('groups');close();render();toast(t('saved'))}
+ if(f.id==='fStudent'){const o={name:d.name.trim(),phone:d.phone.trim(),parent:d.parent.trim(),groupId:d.groupId,notes:d.notes,active:!!d.active};
+  if(d.id)Object.assign(ST(d.id),o);else S.students.push({id:uid(),joined:today(),...o});mark('students');close();render();toast(t('saved'))}
+ if(f.id==='fPay'){S.payments.push({id:uid(),sid:d.sid,month:d.month,amount:+d.amount,date:d.date,method:d.method});mark('payments');close();render();toast(t('payRecorded'))}
+ if(f.id==='fExam'){const o={title:d.title,groupId:d.groupId,date:d.date,max:+d.max||20};if(d.id)Object.assign(S.exams.find(x=>x.id===d.id),o);else S.exams.push({id:uid(),res:{},...o});mark('exams');close();render()}
+ if(f.id==='fLink'){if(!/^https:\/\//.test(d.url)){toast(t('linkHttps'));return}const s=SES(d.sid);if(s){s.files=s.files||[];s.files.push({id:uid(),name:d.name.trim(),kind:'video',url:d.url.trim()});markSes(s.date)}close();render()}
+ if(f.id==='fMat'){const file=f.querySelector('input[type=file]').files[0];if(!file&&d.url&&!/^https:\/\//.test(d.url)){toast(t('linkHttps'));return}
+  const m={id:uid(),title:d.title,groupId:d.groupId,desc:d.desc,url:file?'':(d.url||''),kind:file?kindOf(file):(d.url?(/youtu|vimeo/.test(d.url)?'video':'link'):'doc')};S.materials.push(m);mark('materials');
+  if(file){await uploadFiles('material',m.id,[file])}close();render()}});
+document.addEventListener('click',e=>{const at=e.target.closest('.att button');if(at){const sid=at.parentNode.dataset.sid,s=SES(route().slice(8));if(s){s.rec[sid].a=at.dataset.v;markSes(s.date);at.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===at))}return}
+ const b=e.target.closest('[data-act]');if(!b)return;const a=b.dataset.act,id=b.dataset.id;
+ if(b.dataset.aid&&a!=='read'&&!S.meta.read.includes(b.dataset.aid)){S.meta.read.push(b.dataset.aid);mark('meta')}
+ const F={close,
+  wa:()=>openWA(b.dataset.sid,b.dataset.kind,b.dataset.kind==='summary'?'':b.dataset.x,b.dataset.kind==='summary'?b.dataset.x:b.dataset.to,b.dataset.kind==='session'?b.dataset.x:''),
+  waabs:()=>openWA(id,'absent'),wasum:()=>{ui.range='month';openWA(id,'summary')},
+  start:()=>startSession(id),pickstart:pickStart,go:()=>{location.hash=id},
+  read:()=>{S.meta.read.push(b.dataset.aid);S.meta.read=S.meta.read.slice(-500);mark('meta');render()},
+  readall:()=>{alerts().forEach(x=>{if(!S.meta.read.includes(x.id))S.meta.read.push(x.id)});S.meta.read=S.meta.read.slice(-500);mark('meta');render()},
+  atab:()=>{ui.atab=id;render()},akind:()=>{ui.akind=id;render()},
+  popclose:()=>$('#pop').classList.remove('on'),
+  feeall:()=>openBulk('fee'),bulk:()=>openBulk(b.dataset.kind,id),
+  groupForm:()=>groupForm(id),studentForm:()=>{if(!S.groups.length){toast(t('addGroupFirst'));return}studentForm(id,b.dataset.g)},payForm:()=>payForm(b.dataset.sid),examForm:()=>{if(!S.groups.length){toast(t('addGroupFirst'));return}examForm(id)},matForm,
+  linkForm:()=>linkForm(b.dataset.scope,b.dataset.sid),
+  renFile:()=>{const s=SES(b.dataset.sid),f=s&&(s.files||[]).find(x=>x.id===id);if(!f)return;open('<h2>'+t('rename')+'</h2><input id="rn" value="'+esc(f.name)+'"><div class="row" style="margin-top:16px"><button class="btn p" id="rnok">'+t('save')+'</button><span class="sp"></span><button class="btn" data-act="close">'+t('cancel')+'</button></div>');$('#rnok').onclick=()=>{const v=$('#rn').value.trim();if(v){f.name=v;markSes(s.date)}close();render()}},
+  delFile:()=>ask(t('cDel'),()=>{const s=SES(b.dataset.sid);if(!s)return;const f=(s.files||[]).find(x=>x.id===id);s.files=(s.files||[]).filter(x=>x.id!==id);markSes(s.date);if(f)removeStored(f.path);render()}),
+  quickPay:()=>{const s=b.dataset.sid;S.payments.push({id:uid(),sid:s,month:ui.month,amount:owes(s,ui.month),date:today(),method:'cash'});mark('payments');render();toast(t('payRecorded'))},
+  tab:()=>{ui.tab=id;render()},
+  allPresent:()=>{const s=SES(id);Object.values(s.rec).forEach(r=>r.a='ح');markSes(s.date);render()},
+  delSession:()=>ask(t('cDelSession'),()=>{const s=SES(id);(s.files||[]).forEach(f=>removeStored(f.path));S.sessions=S.sessions.filter(x=>x.id!==id);markSes(s.date);location.hash='group-'+s.groupId}),
+  delGroup:()=>{close();ask(t('cDelGroup'),()=>{S.groups=S.groups.filter(g=>g.id!==id);mark('groups');location.hash='groups';render()})},
+  delStudent:()=>{close();ask(t('cDelStudent'),()=>{S.students=S.students.filter(s=>s.id!==id);mark('students');location.hash='students';render()})},
+  delPay:()=>ask(t('cDelPay'),()=>{S.payments=S.payments.filter(p=>p.id!==id);mark('payments');render()}),
+  delExam:()=>ask(t('cDelExam'),()=>{S.exams=S.exams.filter(x=>x.id!==id);mark('exams');location.hash='exams'}),
+  delMat:()=>ask(t('cDel'),()=>{const m=S.materials.find(x=>x.id===id);if(m)removeStored(m.path);S.materials=S.materials.filter(x=>x.id!==id);mark('materials');render()}),
+  resetTpl:()=>{const L=ML();S.meta.tpl[L][id]=DEFTPL[L][id];mark('meta');render()},
+  msgLang:()=>{S.meta.prefs.msgLang=id;mark('meta');render()},
+  setLang:()=>{lang=id;applyLang();syncSubLang()},lang:()=>{lang=lang==='ar'?'en':'ar';applyLang();syncSubLang()},
+  setTheme:()=>{applyTheme(id);render()},theme:()=>{const th=document.documentElement.dataset.theme,dk=th==='dark'||(!th&&matchMedia('(prefers-color-scheme: dark)').matches);applyTheme(dk?'light':'dark');if(route()==='prefs')render()},
+  authMode:()=>{authMode=id;renderAuth()},
+  install:doInstall,pushon:pushOn,pushoff:pushOff,pushtest:pushTest,
+  logout:async()=>{await pushOff();await sb.auth.signOut()},
+  export:()=>{open('<h2>'+t('backup')+'</h2><textarea id="ex" style="min-height:240px" dir="ltr">'+esc(JSON.stringify(S))+'</textarea><div class="row" style="margin-top:12px"><button class="btn p" id="cp">'+t('copy')+'</button><span class="sp"></span><button class="btn" data-act="close">'+t('close')+'</button></div>');$('#cp').onclick=()=>copyTxt($('#ex'))},
+  import:()=>{open('<h2>'+t('import')+'</h2><p class="mut">'+t('backupPaste')+'</p><textarea id="im" dir="ltr"></textarea><div class="row" style="margin-top:12px"><button class="btn p" id="ig">'+t('import')+'</button><span class="sp"></span><button class="btn" data-act="close">'+t('cancel')+'</button></div>');$('#ig').onclick=()=>{try{const o=JSON.parse($('#im').value);if(!o.meta||!Array.isArray(o.students))throw 0;const old=allKeys();S={...blank(),...o,meta:normMeta(o.meta)};mark(...old,...allKeys());close();render();toast(t('imported'))}catch(err){toast(t('importBad'))}}},
+  clearDemo:()=>ask(t('cClearDemo'),()=>{const old=allKeys();Object.assign(S,{groups:[],students:[],sessions:[],exams:[],payments:[],materials:[],log:[]});S.meta.demo=false;S.meta.read=[];mark(...old);render()}),
+  wipe:()=>ask(t('cWipe'),()=>{const old=allKeys();S=blank();mark(...old,'meta');render()})};
+ if(F[a])F[a]()});
+async function syncSubLang(){try{if(PUSH.state!=='on')return;const r=swReg||await navigator.serviceWorker.ready,sub=await r.pushManager.getSubscription();if(sub)await sb.from('push_subs').update({lang}).eq('endpoint',sub.endpoint)}catch(e){}}
+let it;
+document.addEventListener('input',e=>{const x=e.target,d=x.dataset;
+ if(x.id==='q'){ui.q=x.value;clearTimeout(it);it=setTimeout(()=>{render();const q=$('#q');q.focus();q.setSelectionRange(q.value.length,q.value.length)},250);return}
+ if(d.rec){const s=SES(route().slice(8));if(s){s.rec[d.rec][d.k]=d.k==='s'?(x.value===''?'':+x.value.replace(',','.')):x.value;markSes(s.date)}return}
+ if(d.ses){const s=SES(route().slice(8));if(s){const old=s.date;if(d.ses==='date'&&!x.value)return;s[d.ses]=d.ses==='max'?(+x.value||0):x.value;markSes(old,s.date)}return}
+ if(d.exam){const ex=S.exams.find(v=>v.id===d.exam);ex.res=ex.res||{};ex.res[d.sid]=x.value===''?'':+x.value;mark('exams');return}
+ if(d.meta){S.meta[d.meta]=x.value;mark('meta');return}
+ if(d.tpl){S.meta.tpl[ML()][d.tpl]=x.value;mark('meta');return}
+ if(d.pref){S.meta.prefs[d.pref]=+x.value||0;mark('meta');return}});
+document.addEventListener('change',e=>{const x=e.target;
+ if(x.dataset.upload&&x.files.length){uploadFiles(x.dataset.upload,x.dataset.sid,x.files);return}
+ if(x.id==='fg'){ui.fg=x.value;render()}if(x.id==='fu'){ui.fu=x.checked;render()}
+ if(x.id==='pm'){ui.month=x.value||curMonth();render()}
+ if(x.id==='range'){ui.range=x.value;render()}if(x.id==='rf'){ui.from=x.value;render()}if(x.id==='rt'){ui.to=x.value;render()}
+ if(x.dataset.on){S.meta.prefs.on[x.dataset.on]=x.checked;mark('meta');renderChrome()}});
+/* ================= sample data (fake names & numbers) ================= */
+function seed(){S.meta.demo=true;const en=lang==='en';
+ const g1={id:uid(),name:en?'Grade 12 — Sat & Tue':'تالتة ثانوي — سبت وتلات',subject:en?'Maths':'رياضيات',grade:en?'Grade 12':'3 ثانوي',days:[6,2],time:'16:00',fee:400,color:COLORS[0]},g2={id:uid(),name:en?'Grade 11 — Sun & Wed':'تانية ثانوي — حد وأربع',subject:en?'Maths':'رياضيات',grade:en?'Grade 11':'2 ثانوي',days:[0,3],time:'18:30',fee:350,color:COLORS[2]};
+ const td=new Date().getDay();if(!g1.days.includes(td)&&!g2.days.includes(td))g2.days.push(td);S.groups=[g1,g2];
+ const N=en?['Youssef Mahmoud','Mariam Ahmed','Omar Khaled','Salma Hassan','Adam Mostafa','Jana Ibrahim','Ziad Tarek','Habiba Samy','Malek Adel','Farida Wael']:['يوسف محمود','مريم أحمد','عمر خالد','سلمى حسن','آدم مصطفى','جنى إبراهيم','زياد طارق','حبيبة سامي','مالك عادل','فريدة وائل'];
+ S.students=N.map((n,i)=>({id:uid(),name:n,phone:'0112000'+z(10+i)+'00',parent:'0102000'+z(10+i)+'00',groupId:i<6?g1.id:g2.id,notes:'',active:true,joined:addDays(today(),-60)}));
+ const topics=en?['Quadratic equations','Sequences','Trigonometry','Intro to calculus','Limits','Exponential functions']:['المعادلات التربيعية','المتتابعات','حساب المثلثات','التفاضل — مقدمة','النهايات','الدوال الأسية'];let k=0;
+ for(const g of S.groups){for(let d=24;d>=1;d--){const ds=addDays(today(),-d);if(!g.days.includes(new Date(ds+'T12:00').getDay()))continue;const s={id:uid(),groupId:g.id,date:ds,topic:topics[k++%topics.length],hw:(en?'Exercises p. ':'تمارين صفحة ')+(20+k),max:10,rec:{},files:[]};
+  inG(g.id).forEach((st,i)=>{const bad=i===2,ab=(bad&&d<9)||Math.random()<.08;s.rec[st.id]={a:ab?'غ':'ح',s:ab?'':Math.max(3,Math.round(10-Math.random()*(bad?7:4))),h:ab?'':(i===4&&d<9)?'لا':Math.random()<.75?'تم':'ناقص',r:ab?'':String(3+Math.round(Math.random()*2)),c:''}});S.sessions.push(s)}}
+ const m=curMonth();S.students.forEach((s,i)=>{if(i%3!==1)S.payments.push({id:uid(),sid:s.id,month:m,amount:feeOf(s.id),date:today(),method:'cash'});const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-1);S.payments.push({id:uid(),sid:s.id,month:ymd(d).slice(0,7),amount:feeOf(s.id),date:ymd(d),method:i%2?'vcash':'cash'})});
+ S.exams=[{id:uid(),title:en?'Monthly exam':'امتحان الشهر',groupId:g1.id,date:addDays(today(),1),max:20,res:{}}];
+ S.materials=[{id:uid(),title:en?'Final revision notes':'مذكرة المراجعة النهائية',kind:'link',groupId:g1.id,url:'https://drive.google.com/',desc:en?'Full revision of unit one':'مراجعة الباب الأول كامل'}]}
+/* ================= boot ================= */
+if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').then(r=>{swReg=r}).catch(()=>{});
+let booted=null;
+sb.auth.onAuthStateChange((ev,session)=>{const u=session&&session.user;
+ if(u&&(!user||user.id!==u.id)){user=u;S=blank();loaded=false;dirty=new Set();shell();render();if(booted!==u.id){booted=u.id;boot()}}
+ else if(!u&&user){user=null;booted=null;S=blank();loaded=false;$('#pop').classList.remove('on');renderAuth()}
+ else if(!u&&!user)renderAuth()});
+setInterval(()=>{if(!user||!loaded)return;checkNew();if(!$('#modal').classList.contains('on')&&!document.activeElement.matches('input,textarea,select'))renderChrome()},60000);
+document.title=t('app');
+}
+</script>
+</body>
+</html>
