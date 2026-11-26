@@ -1,4 +1,4 @@
-const CACHE = 'rafiq-v5';
+const CACHE = 'rafiq-v6';
 const SHELL = ['./', './index.html', './manifest.json', './supabase.js', './icon-192.png', './icon-512.png', './icon-maskable.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
