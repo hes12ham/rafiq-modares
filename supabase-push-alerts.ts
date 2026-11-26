@@ -28,6 +28,7 @@ async function vapid() {
 
 const TX: Record<string, Record<string, string>> = {
   ar: {
+    day: "بكرة: حصة {g} الساعة {t}", dayB: "{n} طالب — افتح التطبيق وذكّر الطلاب",
     soon: "حصة {g} كمان {m} دقيقة", soonB: "الساعة {t} — افتح وسجّل الحضور",
     miss: "حصة {g} النهارده لسه متسجلتش", missB: "سجّل الحضور والدرجات عشان التقارير تطلع",
     abs: "{s} غاب {n} حصص ورا بعض", absB: "ابعت لولي الأمر من التطبيق",
@@ -36,6 +37,7 @@ const TX: Record<string, Record<string, string>> = {
     test: "الإشعارات شغالة ✓", testB: "هيوصلك تنبيه بالحصص والغياب والمصاريف",
   },
   en: {
+    day: "Tomorrow: {g} at {t}", dayB: "{n} students — open the app to remind them",
     soon: "{g} starts in {m} min", soonB: "At {t} — open the app to take attendance",
     miss: "{g} today isn't recorded yet", missB: "Record attendance and grades so reports are ready",
     abs: "{s} missed {n} sessions in a row", absB: "Message the parent from the app",
@@ -84,6 +86,19 @@ function compute(docs: Record<string, any>): Alert[] {
         out.push({ id: `soon-${g.id}${L.date}${sl.t}`, k: "soon", title: both("soon", { g: g.name, m: t - L.mins }), body: both("soonB", { t: sl.t }), url: "#home" });
       if (on.missing !== false && !done && L.mins - t >= 60 && L.mins - t <= 300)
         out.push({ id: `miss-${g.id}${L.date}${sl.t}`, k: "missing", title: both("miss", { g: g.name }), body: both("missB", {}), url: "#home" });
+    }
+  }
+  if (on.day !== false) {
+    const tom = addDays(L.date, 1), twd = (L.wd + 1) % 7;
+    for (const g of groups) {
+      if (g.start && tom < g.start) continue;
+      const slots: { d: number; t: string }[] = (g.slots && g.slots.length) ? g.slots : (g.days || []).map((d: number) => ({ d, t: g.time }));
+      const n = students.filter((s) => s.groupId === g.id).length;
+      for (const sl of slots) {
+        if (sl.d !== twd || !sl.t) continue;
+        const [h, m] = String(sl.t).split(":").map(Number), t = h * 60 + (m || 0);
+        if (L.mins >= t) out.push({ id: `day-${g.id}${tom}${sl.t}`, k: "day", title: both("day", { g: g.name, t: sl.t }), body: both("dayB", { n }), url: "#home" });
+      }
     }
   }
   if (on.absent !== false) for (const st of students) {
