@@ -685,7 +685,7 @@ function seed(){S.meta.demo=true;const en=lang==='en';
  S.exams=[{id:uid(),title:en?'Monthly exam':'امتحان الشهر',groupId:g1.id,date:addDays(today(),1),max:20,res:{}}];
  S.materials=[{id:uid(),title:en?'Final revision notes':'مذكرة المراجعة النهائية',kind:'link',groupId:g1.id,url:'https://drive.google.com/',desc:en?'Full revision of unit one':'مراجعة الباب الأول كامل'}]}
 /* ================= boot ================= */
-if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').then(r=>{swReg=r}).catch(()=>{});
+if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>{swReg=r;r.update().catch(()=>{});r.addEventListener('updatefound',()=>{const w=r.installing;if(w)w.addEventListener('statechange',()=>{if(w.state==='activated'&&!sessionStorage.getItem('rafiq-reloaded')){sessionStorage.setItem('rafiq-reloaded','1');location.reload()}})})}).catch(()=>{});
 let booted=null;
 sb.auth.onAuthStateChange((ev,session)=>{const u=session&&session.user;
  if(u&&(!user||user.id!==u.id)){user=u;S=blank();loaded=false;dirty=new Set();shell();render();if(booted!==u.id){booted=u.id;boot()}}
