@@ -24,7 +24,7 @@
 --wa:#1a9e50;--ok:light-dark(#0f7a43,#4fd08a);--okSoft:light-dark(#e7f6ee,#122a1d);--warn:light-dark(#a86200,#f2b552);
 --sat:env(safe-area-inset-top);--sab:env(safe-area-inset-bottom)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
-*{box-sizing:border-box;min-width:0}
+*{box-sizing:border-box;min-width:0}[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans Arabic",system-ui,Tahoma,sans-serif;overflow-x:clip;-webkit-tap-highlight-color:transparent}
 h1,h2,h3{font-family:Cairo,"IBM Plex Sans Arabic",system-ui,sans-serif;line-height:1.2;margin:0;text-wrap:balance}
 h1{font-size:clamp(24px,4vw,34px)}h2{font-size:19px}h3{font-size:17px}
@@ -579,20 +579,20 @@ addEventListener('appinstalled',()=>{deferredInstall=null;toast(t('installed'));
 async function doInstall(){if(deferredInstall){deferredInstall.prompt();try{await deferredInstall.userChoice}catch(e){}deferredInstall=null;return}
  open('<h2>'+t('install')+'</h2><p>'+(isIOS?t('iosInstall'):t('androidInstall'))+'</p><div class="row" style="margin-top:14px"><span class="sp"></span><button class="btn" data-act="close">'+t('ok')+'</button></div>')}
 /* ================= events ================= */
-document.addEventListener('submit',async e=>{e.preventDefault();const f=e.target,d=Object.fromEntries(new FormData(f));
- if(f.id==='fAuth'){const btn=f.querySelector('button');btn.disabled=true;
+document.addEventListener('submit',async e=>{e.preventDefault();const f=e.target,d=Object.fromEntries(new FormData(f));const fid=f.getAttribute('id');
+ if(fid==='fAuth'){const btn=f.querySelector('button');btn.disabled=true;
   if(authMode==='up'){const{data,error}=await sb.auth.signUp({email:d.email,password:d.password,options:{emailRedirectTo:location.origin+location.pathname}});btn.disabled=false;if(error){renderAuth(error.message);return}if(!data.session){authMode='in';renderAuth(t('checkEmail'))}}
   else{const{error}=await sb.auth.signInWithPassword({email:d.email,password:d.password});btn.disabled=false;if(error)renderAuth(t('authErr')+' — '+error.message)}
   return}
- if(f.id==='fWelcome'){S.meta.teacher=d.teacher;S.meta.center=d.center;S.meta.started=true;S.meta.prefs.msgLang=lang;if(e.submitter&&e.submitter.value==='1')seed();mark(...allKeys());render();return}
- if(f.id==='fGroup'){const days=[0,1,2,3,4,5,6].filter(i=>d['d'+i]),o={name:d.name.trim(),subject:d.subject,grade:d.grade,time:d.time,fee:+d.fee||0,days,color:d.color||COLORS[0]};
+ if(fid==='fWelcome'){S.meta.teacher=d.teacher;S.meta.center=d.center;S.meta.started=true;S.meta.prefs.msgLang=lang;if(e.submitter&&e.submitter.value==='1')seed();mark(...allKeys());render();return}
+ if(fid==='fGroup'){const days=[0,1,2,3,4,5,6].filter(i=>d['d'+i]),o={name:d.name.trim(),subject:d.subject,grade:d.grade,time:d.time,fee:+d.fee||0,days,color:d.color||COLORS[0]};
   if(d.id)Object.assign(G(d.id),o);else S.groups.push({id:uid(),...o});mark('groups');close();render();toast(t('saved'))}
- if(f.id==='fStudent'){const o={name:d.name.trim(),phone:d.phone.trim(),parent:d.parent.trim(),groupId:d.groupId,notes:d.notes,active:!!d.active};
+ if(fid==='fStudent'){const o={name:d.name.trim(),phone:d.phone.trim(),parent:d.parent.trim(),groupId:d.groupId,notes:d.notes,active:!!d.active};
   if(d.id)Object.assign(ST(d.id),o);else S.students.push({id:uid(),joined:today(),...o});mark('students');close();render();toast(t('saved'))}
- if(f.id==='fPay'){S.payments.push({id:uid(),sid:d.sid,month:d.month,amount:+d.amount,date:d.date,method:d.method});mark('payments');close();render();toast(t('payRecorded'))}
- if(f.id==='fExam'){const o={title:d.title,groupId:d.groupId,date:d.date,max:+d.max||20};if(d.id)Object.assign(S.exams.find(x=>x.id===d.id),o);else S.exams.push({id:uid(),res:{},...o});mark('exams');close();render()}
- if(f.id==='fLink'){if(!/^https:\/\//.test(d.url)){toast(t('linkHttps'));return}const s=SES(d.sid);if(s){s.files=s.files||[];s.files.push({id:uid(),name:d.name.trim(),kind:'video',url:d.url.trim()});markSes(s.date)}close();render()}
- if(f.id==='fMat'){const file=f.querySelector('input[type=file]').files[0];if(!file&&d.url&&!/^https:\/\//.test(d.url)){toast(t('linkHttps'));return}
+ if(fid==='fPay'){S.payments.push({id:uid(),sid:d.sid,month:d.month,amount:+d.amount,date:d.date,method:d.method});mark('payments');close();render();toast(t('payRecorded'))}
+ if(fid==='fExam'){const o={title:d.title,groupId:d.groupId,date:d.date,max:+d.max||20};if(d.id)Object.assign(S.exams.find(x=>x.id===d.id),o);else S.exams.push({id:uid(),res:{},...o});mark('exams');close();render()}
+ if(fid==='fLink'){if(!/^https:\/\//.test(d.url)){toast(t('linkHttps'));return}const s=SES(d.sid);if(s){s.files=s.files||[];s.files.push({id:uid(),name:d.name.trim(),kind:'video',url:d.url.trim()});markSes(s.date)}close();render()}
+ if(fid==='fMat'){const file=f.querySelector('input[type=file]').files[0];if(!file&&d.url&&!/^https:\/\//.test(d.url)){toast(t('linkHttps'));return}
   const m={id:uid(),title:d.title,groupId:d.groupId,desc:d.desc,url:file?'':(d.url||''),kind:file?kindOf(file):(d.url?(/youtu|vimeo/.test(d.url)?'video':'link'):'doc')};S.materials.push(m);mark('materials');
   if(file){await uploadFiles('material',m.id,[file])}close();render()}});
 document.addEventListener('click',e=>{const at=e.target.closest('.att button');if(at){const sid=at.parentNode.dataset.sid,s=SES(route().slice(8));if(s){s.rec[sid].a=at.dataset.v;markSes(s.date);at.parentNode.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===at))}return}
